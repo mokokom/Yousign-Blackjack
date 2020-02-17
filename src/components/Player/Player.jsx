@@ -1,14 +1,17 @@
 import React from "react";
 import "./Player.css";
 
-const Player = ({ playerCards, hit, score, playerScore }) => {
-	/* console.log(playerCards); */
-
+const Player = ({ playerCards, hit, stand, playerScore, isPlayerToPlay }) => {
 	return (
 		<>
 			<h1>Player: {playerScore}</h1>
 			<div>
-				<button onClick={hit}>HIT</button>
+				<button disabled={!isPlayerToPlay} onClick={hit}>
+					HIT
+				</button>
+				<button disabled={!isPlayerToPlay} onClick={stand}>
+					STAND
+				</button>
 			</div>
 			<div className="card-container">
 				{playerCards.map(card => {

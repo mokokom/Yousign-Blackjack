@@ -8,9 +8,6 @@ const useDeckHandler = init => {
 	const [dealerScore, setDealerScore] = useState();
 	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
 	const [isLoading, setIsloading] = useState(true);
-	/* let score = 0; */
-	/* const { cards } = state;
-	console.log(cards); */
 
 	useEffect(() => {
 		try {
@@ -82,15 +79,26 @@ const useDeckHandler = init => {
 				cards: [...playerCards, ...response.cards]
 			});
 			setPlayerCards([...playerCards, ...response.cards]);
+			/* checkScore(playerScore); */
 		};
 		draw();
+	};
+
+	/* const checkScore = player => {
+		console.log(player);
+	}; */
+	const stand = () => {
+		console.log("stand");
 	};
 
 	useEffect(() => {
 		setPlayerScore(calcPlayerScore());
 		setDealerScore(calcDealerScore());
+
+		/* if(playerScore > 21) console.log("loooose"); */
 	}, [playerCards, dealerCards]);
 
+	if (playerScore > 21) console.log("loooose");
 	return [
 		deck_id,
 		remaining,
@@ -99,6 +107,7 @@ const useDeckHandler = init => {
 		dealerCards,
 		isPlayerToPlay,
 		hit,
+		stand,
 		playerScore,
 		dealerScore,
 		isLoading
