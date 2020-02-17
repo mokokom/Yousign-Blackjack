@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import useDeckHandler from "./hooks/useDeckHandler";
+import Player from "./components/Player/Player";
+import Dealer from "./components/Dealer";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const [
+		deck_id,
+		remaining,
+		cards,
+		playerCards,
+		dealerCards,
+		calcScore,
+		hit
+	] = useDeckHandler({});
+	console.log(deck_id, remaining);
+
+	/* console.log(deck_id, cards, remaining, playerCards, dealerCards); */
+
+	return (
+		<div className="App">
+			<Player playerCards={playerCards} hit={hit} score={calcScore} />
+			<Dealer />
+		</div>
+	);
+};
 
 export default App;
