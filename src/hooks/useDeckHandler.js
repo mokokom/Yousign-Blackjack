@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 
 const useDeckHandler = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
-	const [playerCards, setPlayerCards] = useState([]);
-	const [dealerCards, setDealerCards] = useState([]);
+	const [playerCards, setPlayerCards] = useState([{}]);
+	const [dealerCards, setDealerCards] = useState([{}]);
 	const [playerScore, setPlayerScore] = useState();
+	const [dealerScore, setDealerScore] = useState();
+	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
+	const [isLoading, setIsloading] = useState(true);
+	/* let score = 0; */
 	/* const { cards } = state;
 	console.log(cards); */
 
@@ -31,32 +35,38 @@ const useDeckHandler = init => {
 			setPlayerCards(response.cards.filter((c, i) => i % 2 !== 0));
 			setDealerCards(response.cards.filter((c, i) => i % 2 === 0));
 		}
+		setIsloading(!isLoading);
 	};
 
-	const checkScore = score => {
+	const checkAce = score => {
 		return score + 11 <= 21 ? 11 : 1;
 	};
 
 	const calcPlayerScore = () => {
 		let score = 0;
 		playerCards.map(card => {
-			card.value === "ACE"
-				? (score += checkScore(score))
-				: isNaN(+card.value)
-				? (score += 10)
-				: (score += +card.value);
+			score = pointTranslator(card, score);
 		});
 		return score;
 	};
 	const calcDealerScore = () => {
 		let score = 0;
-		dealerCards.map(card => {
-			card.value === "ACE"
-				? (score += checkScore(score))
-				: isNaN(+card.value)
-				? (score += 10)
-				: (score += +card.value);
-		});
+		if (isPlayerToPlay) {
+			score = dealerCards[0].value;
+		} else {
+			dealerCards.forEach(card => {
+				score = pointTranslator(card, score);
+			});
+		}
+		return score;
+	};
+
+	const pointTranslator = (card, score) => {
+		card.value === "ACE"
+			? (score += checkAce(score))
+			: isNaN(+card.value)
+			? (score += 10)
+			: (score += +card.value);
 		return score;
 	};
 
@@ -76,15 +86,22 @@ const useDeckHandler = init => {
 		draw();
 	};
 
+	useEffect(() => {
+		setPlayerScore(calcPlayerScore());
+		setDealerScore(calcDealerScore());
+	}, [playerCards, dealerCards]);
+
 	return [
 		deck_id,
 		remaining,
 		cards,
 		playerCards,
 		dealerCards,
-		calcPlayerScore,
-		calcDealerScore,
-		hit
+		isPlayerToPlay,
+		hit,
+		playerScore,
+		dealerScore,
+		isLoading
 	];
 };
 

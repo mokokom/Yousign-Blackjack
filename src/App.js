@@ -11,19 +11,33 @@ const App = () => {
 		cards,
 		playerCards,
 		dealerCards,
-		calcPlayerScore,
-		calcDealerScore,
-		hit
+		isPlayerToPlay,
+		hit,
+		playerScore,
+		dealerScore,
+		isLoading
 	] = useDeckHandler({});
-	console.log(deck_id, remaining);
-
-	/* console.log(deck_id, cards, remaining, playerCards, dealerCards); */
+	console.log(isLoading);
 
 	return (
-		<div className="App">
-			<Dealer dealerCards={dealerCards} score={calcDealerScore} />
-			<Player playerCards={playerCards} hit={hit} score={calcPlayerScore} />
-		</div>
+		<>
+			{isLoading ? (
+				<h1>LOADING....</h1>
+			) : (
+				<div className="App">
+					<Dealer
+						dealerCards={dealerCards}
+						isPlayerToPlay={isPlayerToPlay}
+						dealerScore={dealerScore}
+					/>
+					<Player
+						playerCards={playerCards}
+						hit={hit}
+						playerScore={playerScore}
+					/>
+				</div>
+			)}
+		</>
 	);
 };
 
