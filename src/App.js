@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useDeckHandler from "./hooks/useDeckHandler";
 import Player from "./components/Player/Player";
-import Dealer from "./components/Dealer";
+import Dealer from "./components/Dealer/Dealer";
 import "./App.css";
 
 const App = () => {
@@ -11,7 +11,8 @@ const App = () => {
 		cards,
 		playerCards,
 		dealerCards,
-		calcScore,
+		calcPlayerScore,
+		calcDealerScore,
 		hit
 	] = useDeckHandler({});
 	console.log(deck_id, remaining);
@@ -20,8 +21,8 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Player playerCards={playerCards} hit={hit} score={calcScore} />
-			<Dealer />
+			<Dealer dealerCards={dealerCards} score={calcDealerScore} />
+			<Player playerCards={playerCards} hit={hit} score={calcPlayerScore} />
 		</div>
 	);
 };

@@ -37,7 +37,7 @@ const useDeckHandler = init => {
 		return score + 11 <= 21 ? 11 : 1;
 	};
 
-	const calcScore = () => {
+	const calcPlayerScore = () => {
 		let score = 0;
 		playerCards.map(card => {
 			card.value === "ACE"
@@ -46,8 +46,17 @@ const useDeckHandler = init => {
 				? (score += 10)
 				: (score += +card.value);
 		});
-		console.log(score);
-
+		return score;
+	};
+	const calcDealerScore = () => {
+		let score = 0;
+		dealerCards.map(card => {
+			card.value === "ACE"
+				? (score += checkScore(score))
+				: isNaN(+card.value)
+				? (score += 10)
+				: (score += +card.value);
+		});
 		return score;
 	};
 
@@ -67,7 +76,16 @@ const useDeckHandler = init => {
 		draw();
 	};
 
-	return [deck_id, remaining, cards, playerCards, dealerCards, calcScore, hit];
+	return [
+		deck_id,
+		remaining,
+		cards,
+		playerCards,
+		dealerCards,
+		calcPlayerScore,
+		calcDealerScore,
+		hit
+	];
 };
 
 export default useDeckHandler;

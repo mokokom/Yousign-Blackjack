@@ -6,7 +6,7 @@ const Player = ({ playerCards, hit, score }) => {
 
 	return (
 		<>
-			<h1>Player: {score()}</h1>
+			<h1>Player: {score("player")}</h1>
 			<div>
 				<button onClick={hit}>HIT</button>
 			</div>
