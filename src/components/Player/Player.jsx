@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Player.css";
 import "../main.css";
-
+let playerVictory = 0;
 const Player = ({
 	playerCards,
 	hit,
 	stand,
 	playerScore,
 	isPlayerToPlay,
-	isPlayerWon
+	wichPlayerWon
 }) => {
+	useEffect(() => {
+		{
+			if (wichPlayerWon === "player") playerVictory += 1;
+		}
+	}, [wichPlayerWon]);
+
 	return (
 		<>
 			{/* <h1>Player: {playerScore}</h1> */}
 			<div className="player-score-container">
-				<div className="player-score-title">Player</div>
-				<div className="player-score">{playerScore}</div>
+				<div className="player-score-title">YOUSIGNER</div>
+				<div className="player-score">{playerVictory}</div>
 			</div>
 
 			<div className="cards-container">
@@ -32,22 +38,22 @@ const Player = ({
 					);
 				})}
 			</div>
-			{isPlayerWon === "player" && <div>WIN</div>}
-			{isPlayerWon === "dealer" && <div>LOOSE</div>}
+			{wichPlayerWon === "player" && <div>WIN</div>}
+			{wichPlayerWon === "dealer" && <div>LOOSE</div>}
 			<div>
 				<div
 					className="action-btn hit-btn"
 					disabled={!isPlayerToPlay}
 					onClick={hit}
 				>
-					HIT
+					<span className="action-btn_title">HIT</span>
 				</div>
 				<div
 					className="action-btn stand-btn"
 					disabled={!isPlayerToPlay}
 					onClick={stand}
 				>
-					STAND
+					<span className="action-btn_title">STAND</span>
 				</div>
 			</div>
 		</>

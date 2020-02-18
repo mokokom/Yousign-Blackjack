@@ -8,7 +8,8 @@
 	width: 75%;
 	opacity: 1;
 	transition: 0.5s ease;
-	background-color: #f16c5a65;
+	/* background-color: #f16c5a31; */
+	background-color: #002b443d;
 	border: 6px solid #73ebca;
 	border-radius: 0.7rem;
 	display: flex;
@@ -40,4 +41,5 @@
 	top: 0.4rem;
 	left: 0.6rem;
 	text-align: left;
+	z-index: 100;
 }

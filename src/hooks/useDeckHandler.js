@@ -10,6 +10,8 @@ const useDeckHandler = init => {
 	const [isLoading, setIsloading] = useState(true);
 	const [wichPlayerWon, setWichPlayerWon] = useState("");
 	const [isCardLoading, setIsCardLoading] = useState(false);
+	/* const [dealerScore, setDealerScore] = useState(0);
+	const [playerScore, setPlayerScore] = useState(0); */
 	/* 	const [showCard, setshowCard] = useState(""); */
 
 	useEffect(() => {

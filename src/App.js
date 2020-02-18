@@ -18,10 +18,9 @@ const App = () => {
 		playerScore,
 		dealerScore,
 		isLoading,
-		isPlayerWon,
+		wichPlayerWon,
 		isCardLoading
 	] = useDeckHandler({});
-	console.log(isCardLoading);
 
 	return (
 		<>
@@ -33,7 +32,7 @@ const App = () => {
 						dealerCards={dealerCards}
 						isPlayerToPlay={isPlayerToPlay}
 						dealerScore={dealerScore}
-						isPlayerWon={isPlayerWon}
+						wichPlayerWon={wichPlayerWon}
 						isCardLoading={isCardLoading}
 					/>
 					<Score
@@ -48,7 +47,7 @@ const App = () => {
 						stand={stand}
 						playerScore={playerScore}
 						isPlayerToPlay={isPlayerToPlay}
-						isPlayerWon={isPlayerWon}
+						wichPlayerWon={wichPlayerWon}
 					/>
 				</div>
 			)}

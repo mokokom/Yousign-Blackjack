@@ -3,6 +3,7 @@
 	top: 0.4rem;
 	right: 0.6rem;
 	text-align: right;
+	z-index: 100;
 }
 
 .player-overlay {
@@ -15,7 +16,8 @@
 	width: 75%;
 	opacity: 1;
 	transition: 0.5s ease;
-	background-color: #73ebcb63;
+	background-color: #002b443d;
+	/* background-color: #73ebcb25; */
 	border: 6px solid #f16c5a;
 	border-radius: 0.7rem;
 	display: flex;
@@ -55,4 +57,11 @@
 	background-color: #73ebca;
 
 	clip-path: polygon(0 10%, 0 100%, 100% 100%);
+}
+
+.action-btn_title {
+	color: #f2f5f7;
+	font-size: 1rem;
+	cursor: pointer;
+	font-family: inherit;
 }
