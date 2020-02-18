@@ -1,5 +1,7 @@
 import React from "react";
 import useDealerCards from "../../hooks/useDealerCards";
+import "../main.css";
+import "./Dealer.css";
 
 const Dealer = ({ dealerCards, isPlayerToPlay, dealerScore, isPlayerWon }) => {
 	const [cards, pointTranslator] = useDealerCards(
@@ -11,12 +13,18 @@ const Dealer = ({ dealerCards, isPlayerToPlay, dealerScore, isPlayerWon }) => {
 	return (
 		<>
 			{isPlayerToPlay ? (
-				<h1>Dealer: {pointTranslator()}</h1>
+				<div className="dealer-score-container">
+					<div className="dealer-score-title">Dealer</div>
+					<div className="dealer-score">{pointTranslator()}</div>
+				</div>
 			) : (
-				<h1>Dealer: {dealerScore}</h1>
+				<div className="dealer-score-container">
+					<div className="dealer-score-title">Dealer</div>
+					<div className="dealer-score">{dealerScore}</div>
+				</div>
 			)}
-			<div className="card-container">{cards}</div>
-			{isPlayerWon === "dealer" && <div>Win</div>}
+			<div className="cards-container">{cards}</div>
+			{isPlayerWon === "dealer" && <div>WIN</div>}
 			{isPlayerWon === "player" && <div>LOOSE</div>}
 		</>
 	);

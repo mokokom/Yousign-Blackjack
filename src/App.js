@@ -33,6 +33,11 @@ const App = () => {
 						dealerScore={dealerScore}
 						isPlayerWon={isPlayerWon}
 					/>
+					<div className="scores">
+						<div className="dealer-value">{dealerScore}</div>
+						<hr className="score-divider" />
+						<div className="player-value">{dealerScore}</div>
+					</div>
 					<Player
 						playerCards={playerCards}
 						hit={hit}

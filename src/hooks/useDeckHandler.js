@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 const useDeckHandler = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
@@ -8,7 +8,7 @@ const useDeckHandler = init => {
 	const [dealerScore, setDealerScore] = useState();
 	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
 	const [isLoading, setIsloading] = useState(true);
-	const [isPlayerWon, setIsPlayerWon] = useState("");
+	const [wichPlayerWon, setWichPlayerWon] = useState("");
 	/* 	const [showCard, setshowCard] = useState(""); */
 
 	useEffect(() => {
@@ -118,19 +118,19 @@ const useDeckHandler = init => {
 		setDealerCards(prevState => [...prevState, ...cards]);
 		if (score >= 17 && score <= 21) {
 			score > playerScore
-				? setIsPlayerWon(
+				? setWichPlayerWon(
 						"dealer"
 				  ) /* console.log(`dealer ${score} won, ${playerScore} loose`) */
-				: setIsPlayerWon(
+				: setWichPlayerWon(
 						"player"
 				  ); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
 		} else if (score > 21) {
-			setIsPlayerWon(
-				"dealer"
+			setWichPlayerWon(
+				"player"
 			); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
 		} else if (score === playerScore) {
-			setIsPlayerWon(
-				"player"
+			setWichPlayerWon(
+				"dealer"
 			); /* console.log(`dealer ${playerScore} won, player ${score} loose`); */
 		}
 		setTimeout(() => {
@@ -139,7 +139,7 @@ const useDeckHandler = init => {
 	};
 
 	const handleReset = () => {
-		setIsPlayerWon("");
+		setWichPlayerWon("");
 		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
@@ -164,7 +164,8 @@ const useDeckHandler = init => {
 
 	useEffect(() => {
 		if (playerScore > 21) {
-			setIsPlayerWon("dealer");
+			setWichPlayerWon("dealer");
+			setIsPlayerToPlay(false);
 			setTimeout(() => {
 				handleReset();
 			}, 2000);
@@ -185,7 +186,7 @@ const useDeckHandler = init => {
 		playerScore,
 		dealerScore,
 		isLoading,
-		isPlayerWon
+		wichPlayerWon
 	];
 };
 

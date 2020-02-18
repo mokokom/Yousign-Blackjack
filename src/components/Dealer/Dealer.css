@@ -1,0 +1,43 @@
+.dealer-overlay {
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	/* left: 0.75rem;
+	right: 0.75rem; */
+	height: auto;
+	width: 75%;
+	opacity: 1;
+	transition: 0.5s ease;
+	background-color: #f16c5a65;
+	border: 6px solid #73ebca;
+	border-radius: 0.7rem;
+	display: flex;
+	text-align: center;
+}
+.dealer-hide-overlay {
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	/* left: 0.75rem;
+	right: 0.75rem; */
+	height: auto;
+	width: 75%;
+	opacity: 1;
+	transition: 0.5s ease;
+	background-color: #f16c5a;
+	border: 6px solid #73ebca;
+	border-radius: 0.7rem;
+	display: flex;
+	text-align: center;
+}
+
+.card-container:hover .overlay {
+	opacity: 0;
+}
+
+.dealer-score-container {
+	position: absolute;
+	top: 0.4rem;
+	left: 0.6rem;
+	text-align: left;
+}

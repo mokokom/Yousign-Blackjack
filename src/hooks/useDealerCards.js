@@ -6,21 +6,36 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 	if (isPlayerToPlay) {
 		cards = dealerCards.map((card, i) => {
 			return i === 1 ? (
-				<img
-					key={card.code}
-					src={card.image}
-					alt={`card: ${card.value}`}
-					className="hide"
-					style={{ display: "" }}
-				/>
+				<div key={card.code} className="card-container">
+					<img
+						src={card.image}
+						alt={`card: ${card.value}`}
+						className="card-container__image card-container__image--hide"
+						style={{ display: "" }}
+					/>
+					<div className="dealer-hide-overlay"></div>
+				</div>
 			) : (
-				<img key={card.code} src={card.image} alt={`card: ${card.value}`} />
+				<div key={card.code} className="card-container">
+					<img
+						src={card.image}
+						alt={`card: ${card.value}`}
+						className="card-container__image"
+					/>
+					<div className="dealer-overlay"></div>
+				</div>
 			);
 		});
 	} else {
 		cards = dealerCards.map((card, i) => {
 			return (
-				<img key={card.code} src={card.image} alt={`card: ${card.value}`} />
+				<div key={card.code} className="card-container">
+					<img
+						src={card.image}
+						alt={`card: ${card.value}`}
+						className="card-container__image"
+					/>
+				</div>
 			);
 		});
 	}

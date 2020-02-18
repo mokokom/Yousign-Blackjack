@@ -1,5 +1,41 @@
-.card-container {
+.player-score-container {
+	position: absolute;
+	top: 0.4rem;
+	right: 0.6rem;
+	text-align: right;
+}
+
+.action-btn {
+	height: 2.8rem;
+	position: absolute;
+	bottom: 0;
+	width: 64%;
+	border: none;
+	color: #f2f5f7;
+	font-size: 1rem;
+	cursor: pointer;
+	font-family: inherit;
 	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+	align-items: flex-end;
+	user-select: none;
+}
+
+.stand-btn {
+	right: 0;
+	justify-content: flex-end;
+	padding-right: 0.6rem;
+	padding-bottom: 0.4rem;
+	background-color: #f16c5a;
+
+	clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.hit-btn {
+	left: 0;
+	justify-content: flex-start;
+	padding-left: 0.6rem;
+	padding-bottom: 0.4rem;
+	background-color: #73ebca;
+
+	clip-path: polygon(0 10%, 0 100%, 100% 100%);
 }
