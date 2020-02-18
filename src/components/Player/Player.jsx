@@ -1,7 +1,14 @@
 import React from "react";
 import "./Player.css";
 
-const Player = ({ playerCards, hit, stand, playerScore, isPlayerToPlay }) => {
+const Player = ({
+	playerCards,
+	hit,
+	stand,
+	playerScore,
+	isPlayerToPlay,
+	isPlayerWon
+}) => {
 	return (
 		<>
 			<h1>Player: {playerScore}</h1>
@@ -22,6 +29,8 @@ const Player = ({ playerCards, hit, stand, playerScore, isPlayerToPlay }) => {
 					);
 				})}
 			</div>
+			{isPlayerWon === "player" && <div>WIN</div>}
+			{isPlayerWon === "dealer" && <div>LOOSE</div>}
 		</>
 	);
 };

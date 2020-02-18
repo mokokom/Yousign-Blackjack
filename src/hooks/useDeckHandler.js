@@ -8,7 +8,8 @@ const useDeckHandler = init => {
 	const [dealerScore, setDealerScore] = useState();
 	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
 	const [isLoading, setIsloading] = useState(true);
-	const [test, setTest] = useState("");
+	const [isPlayerWon, setIsPlayerWon] = useState("");
+	/* 	const [showCard, setshowCard] = useState(""); */
 
 	useEffect(() => {
 		/* setIsPlayerToPlay(true); */
@@ -46,14 +47,13 @@ const useDeckHandler = init => {
 		setPlayerScore(score);
 	};
 
-	const calcDealerScore = test => {
+	const calcDealerScore = showCard => {
 		let score = 0;
-		test
+		showCard
 			? (score = pointTranslator(dealerCards[0], score))
 			: dealerCards.map(card => {
 					score = pointTranslator(card, score);
 			  });
-		/* console.log(`score from calcDealerScore ${score}`); */
 
 		setDealerScore(score);
 	};
@@ -118,12 +118,20 @@ const useDeckHandler = init => {
 		setDealerCards(prevState => [...prevState, ...cards]);
 		if (score >= 17 && score <= 21) {
 			score > playerScore
-				? console.log(`dealer ${score} won, ${playerScore} loose`)
-				: console.log(`player ${playerScore} won, dealer ${score} loose`);
+				? setIsPlayerWon(
+						"dealer"
+				  ) /* console.log(`dealer ${score} won, ${playerScore} loose`) */
+				: setIsPlayerWon(
+						"player"
+				  ); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
 		} else if (score > 21) {
-			console.log(`player ${playerScore} won, dealer ${score} loose`);
+			setIsPlayerWon(
+				"dealer"
+			); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
 		} else if (score === playerScore) {
-			console.log(`dealer ${playerScore} won, player ${score} loose`);
+			setIsPlayerWon(
+				"player"
+			); /* console.log(`dealer ${playerScore} won, player ${score} loose`); */
 		}
 		setTimeout(() => {
 			handleReset();
@@ -131,6 +139,8 @@ const useDeckHandler = init => {
 	};
 
 	const handleReset = () => {
+		setIsPlayerWon("");
+		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
 				const data = await fetch(
@@ -140,7 +150,6 @@ const useDeckHandler = init => {
 				setState(response);
 				deal(response);
 				setIsloading(false);
-				setIsPlayerToPlay(true);
 			};
 			fetchDeck();
 		} catch (error) {
@@ -153,7 +162,14 @@ const useDeckHandler = init => {
 		calcDealerScore();
 	}, [playerCards, dealerCards]);
 
-	if (playerScore > 21) console.log("loooose");
+	useEffect(() => {
+		if (playerScore > 21) {
+			setIsPlayerWon("dealer");
+			setTimeout(() => {
+				handleReset();
+			}, 2000);
+		}
+	}, [playerScore]);
 
 	/* console.log(playerScore); */
 
@@ -168,7 +184,8 @@ const useDeckHandler = init => {
 		stand,
 		playerScore,
 		dealerScore,
-		isLoading
+		isLoading,
+		isPlayerWon
 	];
 };
 
