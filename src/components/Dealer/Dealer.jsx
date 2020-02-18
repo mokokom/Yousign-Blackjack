@@ -1,6 +1,5 @@
 import React from "react";
 import useDealerCards from "../../hooks/useDealerCards";
-/* import { logDOM } from "@testing-library/react"; */
 
 const Dealer = ({ dealerCards, isPlayerToPlay, dealerScore }) => {
 	const [cards] = useDealerCards(dealerCards, isPlayerToPlay, dealerScore);

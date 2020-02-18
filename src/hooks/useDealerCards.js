@@ -1,7 +1,6 @@
 import React from "react";
 
 const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
-	console.log(dealerCards, isPlayerToPlay);
 	let cards = null;
 	if (isPlayerToPlay) {
 		cards = dealerCards.map((card, i) => {

@@ -4,12 +4,14 @@ const useDeckHandler = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
 	const [playerCards, setPlayerCards] = useState([{}]);
 	const [dealerCards, setDealerCards] = useState([{}]);
-	const [playerScore, setPlayerScore] = useState();
+	const [playerScore, setPlayerScore] = useState(0);
 	const [dealerScore, setDealerScore] = useState();
-	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
+	const [isPlayerToPlay, setIsPlayerToPlay] = useState();
 	const [isLoading, setIsloading] = useState(true);
+	const [test, setTest] = useState("");
 
 	useEffect(() => {
+		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
 				const data = await fetch(
@@ -44,18 +46,18 @@ const useDeckHandler = init => {
 		playerCards.map(card => {
 			score = pointTranslator(card, score);
 		});
-		return score;
+		/* return score; */
+		setPlayerScore(score);
 	};
 	const calcDealerScore = () => {
 		let score = 0;
-		if (isPlayerToPlay) {
-			score = dealerCards[0].value;
-		} else {
-			dealerCards.forEach(card => {
-				score = pointTranslator(card, score);
-			});
-		}
-		return score;
+		isPlayerToPlay
+			? (score = pointTranslator(dealerCards[0], score))
+			: dealerCards.map(card => {
+					score = pointTranslator(card, score);
+			  });
+		/* return score; */
+		setDealerScore(score);
 	};
 
 	const pointTranslator = (card, score) => {
@@ -67,38 +69,65 @@ const useDeckHandler = init => {
 		return score;
 	};
 
-	const hit = () => {
-		const draw = async () => {
-			const data = await fetch(
-				`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`
-			);
-			const response = await data.json();
+	const hit = async () => {
+		const response = await fetchCard();
+		setState({
+			deck_id: response.deck_id,
+			remaining: response.remaining,
+			cards: [...cards, ...response.cards]
+		});
+		setPlayerCards([...playerCards, ...response.cards]);
+	};
+
+	const fetchCard = async () => {
+		const data = await fetch(
+			`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`
+		);
+		const response = await data.json();
+		return response;
+	};
+
+	const stand = async () => {
+		setIsPlayerToPlay(false);
+		/* if (dealerScore < 17) {
+			const response = await fetchCard();
 			setState({
 				deck_id: response.deck_id,
 				remaining: response.remaining,
-				cards: [...playerCards, ...response.cards]
+				cards: [...cards, ...response.cards]
 			});
-			setPlayerCards([...playerCards, ...response.cards]);
-			/* checkScore(playerScore); */
-		};
-		draw();
-	};
-
-	/* const checkScore = player => {
-		console.log(player);
-	}; */
-	const stand = () => {
-		console.log("stand");
+			setDealerCards([...dealerCards, ...response.cards]);
+		} */
+		if (dealerScore < 17) {
+			while (dealerScore < 17) {
+				console.log("<17");
+				const response = await fetchCard();
+				setState({
+					deck_id: response.deck_id,
+					remaining: response.remaining,
+					cards: [...cards, ...response.cards]
+				});
+				setDealerCards([...dealerCards, ...response.cards]);
+			}
+		} else if (dealerScore >= 17 && dealerScore <= 21) {
+			dealerScore > playerScore
+				? console.log("dealer win")
+				: console.log("player win");
+		} else if (dealerScore > 21) {
+			console.log("player win");
+		}
 	};
 
 	useEffect(() => {
-		setPlayerScore(calcPlayerScore());
-		setDealerScore(calcDealerScore());
-
-		/* if(playerScore > 21) console.log("loooose"); */
-	}, [playerCards, dealerCards]);
+		/* console.log("getscore"); */
+		calcPlayerScore();
+		calcDealerScore();
+	}, [playerCards, dealerCards, isPlayerToPlay, stand]);
 
 	if (playerScore > 21) console.log("loooose");
+
+	console.log(playerScore);
+
 	return [
 		deck_id,
 		remaining,
