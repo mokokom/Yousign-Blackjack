@@ -9,21 +9,3 @@
 	justify-content: center;
 	align-items: center;
 }
-
-.scores {
-	width: 6rem;
-}
-
-.dealer-value {
-	text-align: left;
-}
-
-.player-value {
-	text-align: right;
-}
-
-.score-divider {
-	transform: rotate(-30deg);
-	margin: 0 0.6rem;
-	color: #868686;
-}

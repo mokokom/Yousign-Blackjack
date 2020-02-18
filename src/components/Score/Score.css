@@ -1,0 +1,18 @@
+.scores {
+	width: 6rem;
+	font-size: 2rem;
+}
+
+.dealer-value {
+	text-align: left;
+}
+
+.player-value {
+	text-align: right;
+}
+
+.score-divider {
+	transform: rotate(-30deg);
+	margin: 0 0.6rem;
+	color: #868686;
+}

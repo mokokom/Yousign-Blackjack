@@ -27,6 +27,7 @@ const Player = ({
 								src={card.image}
 								alt={`${card.suit} ${card.value}`}
 							/>
+							<div className="player-overlay"></div>
 						</div>
 					);
 				})}

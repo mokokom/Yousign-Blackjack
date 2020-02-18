@@ -5,6 +5,23 @@
 	text-align: right;
 }
 
+.player-overlay {
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	/* left: 0.75rem;
+	right: 0.75rem; */
+	height: auto;
+	width: 75%;
+	opacity: 1;
+	transition: 0.5s ease;
+	background-color: #73ebcb63;
+	border: 6px solid #f16c5a;
+	border-radius: 0.7rem;
+	display: flex;
+	text-align: center;
+}
+
 .action-btn {
 	height: 2.8rem;
 	position: absolute;
