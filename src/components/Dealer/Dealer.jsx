@@ -8,24 +8,6 @@ const Dealer = ({ dealerCards, isPlayerToPlay, dealerScore }) => {
 		dealerScore
 	);
 
-	/* 	let translate = () => {
-		switch (dealerCards[0].value) {
-			case "ACE":
-				dealerCards[0].value = dealerCards[0].value + 11 <= 21 ? 11 : 1;
-				break;
-			case "KING":
-			case "QUEEN":
-			case "JACK":
-				dealerCards[0].value = 10;
-				break;
-			default:
-				dealerCards[0].value = +dealerCards[0].value;
-		}
-		return dealerCards[0].value;
-	}; */
-	/* return dealerCards[0].value; */
-	console.log(dealerCards[0].value);
-
 	return (
 		<>
 			{isPlayerToPlay ? (

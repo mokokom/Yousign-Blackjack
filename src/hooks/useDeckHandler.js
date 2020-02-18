@@ -96,6 +96,7 @@ const useDeckHandler = init => {
 	const stand = async () => {
 		setIsPlayerToPlay(false);
 		let score = dealerScore;
+		let cards = [];
 		while (score < 17) {
 			const response = await fetchCard();
 			setState({
@@ -103,10 +104,18 @@ const useDeckHandler = init => {
 				remaining: response.remaining,
 				cards: [...cards, ...response.cards]
 			});
-			setDealerCards(prevState => [...prevState, ...response.cards]);
+			cards.push(...response.cards);
+			console.log(cards);
+
+			/* setDealerCards(prevState => [...prevState, ...response.cards]); */
+			/* setTimeout(() => {
+			}, 500); */
 			score = pointTranslator(response.cards[0], score);
 			console.log(score, response.cards[0]);
 		}
+		console.log(cards);
+
+		setDealerCards(prevState => [...prevState, ...cards]);
 		if (score >= 17 && score <= 21) {
 			score > playerScore
 				? console.log(`dealer ${score} won, ${playerScore} loose`)
