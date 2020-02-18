@@ -4,14 +4,14 @@ const useDeckHandler = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
 	const [playerCards, setPlayerCards] = useState([{}]);
 	const [dealerCards, setDealerCards] = useState([{}]);
-	const [playerScore, setPlayerScore] = useState(0);
+	const [playerScore, setPlayerScore] = useState();
 	const [dealerScore, setDealerScore] = useState();
-	const [isPlayerToPlay, setIsPlayerToPlay] = useState();
+	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
 	const [isLoading, setIsloading] = useState(true);
 	const [test, setTest] = useState("");
 
 	useEffect(() => {
-		setIsPlayerToPlay(true);
+		/* setIsPlayerToPlay(true); */
 		try {
 			const fetchDeck = async () => {
 				const data = await fetch(
@@ -30,6 +30,7 @@ const useDeckHandler = init => {
 	const deal = response => {
 		if (response.cards.length > 4) {
 			setPlayerCards([...playerCards, response.cards.slice(-1).pop()]);
+			console.log(playerCards);
 		} else {
 			setPlayerCards(response.cards.filter((c, i) => i % 2 !== 0));
 			setDealerCards(response.cards.filter((c, i) => i % 2 === 0));
@@ -37,39 +38,57 @@ const useDeckHandler = init => {
 		setIsloading(!isLoading);
 	};
 
-	const checkAce = score => {
+	/* const checkAce = score => {
 		return score + 11 <= 21 ? 11 : 1;
-	};
+	}; */
 
-	const calcPlayerScore = () => {
+	/* 		const calcPlayerScore = () => {
 		let score = 0;
 		playerCards.map(card => {
 			score = pointTranslator(card, score);
 		});
-		/* return score; */
 		setPlayerScore(score);
 	};
-	const calcDealerScore = () => {
+	const calcDealerScore = test => {
 		let score = 0;
-		isPlayerToPlay
+		test
 			? (score = pointTranslator(dealerCards[0], score))
 			: dealerCards.map(card => {
 					score = pointTranslator(card, score);
 			  });
-		/* return score; */
+		console.log(score);
+
 		setDealerScore(score);
-	};
+	}; */
 
 	const pointTranslator = (card, score) => {
+		console.log(card.value);
+
+		switch (card.value) {
+			case "ACE":
+				score += score + 11 <= 21 ? 3 : 1;
+				break;
+			case "KING":
+			case "QUEEN":
+			case "JACK":
+				score += 5;
+				break;
+			default:
+				score += +card.value;
+		}
+		return score;
+	};
+	/* const pointTranslator = (card, score) => {
 		card.value === "ACE"
 			? (score += checkAce(score))
 			: isNaN(+card.value)
 			? (score += 10)
 			: (score += +card.value);
 		return score;
-	};
+	}; */
 
 	const hit = async () => {
+		console.log("hit");
 		const response = await fetchCard();
 		setState({
 			deck_id: response.deck_id,
@@ -88,45 +107,51 @@ const useDeckHandler = init => {
 	};
 
 	const stand = async () => {
-		setIsPlayerToPlay(false);
-		/* if (dealerScore < 17) {
+		checkScore();
+	};
+
+	const checkScore = async () => {
+		let score = dealerScore;
+		console.log(score);
+		while (score < 17) {
+			console.log(score);
+			setDealerScore(score);
 			const response = await fetchCard();
 			setState({
 				deck_id: response.deck_id,
 				remaining: response.remaining,
 				cards: [...cards, ...response.cards]
 			});
-			setDealerCards([...dealerCards, ...response.cards]);
-		} */
-		if (dealerScore < 17) {
-			while (dealerScore < 17) {
-				console.log("<17");
-				const response = await fetchCard();
-				setState({
-					deck_id: response.deck_id,
-					remaining: response.remaining,
-					cards: [...cards, ...response.cards]
-				});
-				setDealerCards([...dealerCards, ...response.cards]);
-			}
-		} else if (dealerScore >= 17 && dealerScore <= 21) {
-			dealerScore > playerScore
-				? console.log("dealer win")
-				: console.log("player win");
-		} else if (dealerScore > 21) {
-			console.log("player win");
+			setDealerCards(prevState => [...prevState, ...response.cards]);
+			dealerCards.map(card => {
+				score = pointTranslator(card, score);
+			});
+			console.log(score);
 		}
 	};
 
 	useEffect(() => {
-		/* console.log("getscore"); */
-		calcPlayerScore();
-		calcDealerScore();
-	}, [playerCards, dealerCards, isPlayerToPlay, stand]);
+		let score = 0;
+		playerCards.map(card => {
+			score = pointTranslator(card, score);
+		});
+		console.log(`player score ${score}`);
+		setPlayerScore(score);
+	}, [playerCards]);
+
+	useEffect(() => {
+		let score = 0;
+		dealerCards.map(card => {
+			score = pointTranslator(card, score);
+		});
+		setDealerScore(score);
+		console.log(`dealer score ${score}`);
+		console.log(isPlayerToPlay);
+	}, [dealerCards]);
 
 	if (playerScore > 21) console.log("loooose");
 
-	console.log(playerScore);
+	/* console.log(playerScore); */
 
 	return [
 		deck_id,
