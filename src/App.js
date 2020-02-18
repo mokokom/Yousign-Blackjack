@@ -40,6 +40,7 @@ const App = () => {
 						dealerCards={dealerCards}
 						dealerScore={dealerScore}
 						playerScore={playerScore}
+						isPlayerToPlay={isPlayerToPlay}
 					/>
 					<Player
 						playerCards={playerCards}
