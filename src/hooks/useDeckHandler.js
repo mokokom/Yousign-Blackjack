@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useDeckHandler = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
@@ -41,14 +41,24 @@ const useDeckHandler = init => {
 	/* const checkAce = score => {
 		return score + 11 <= 21 ? 11 : 1;
 	}; */
+	/* useCallback(() => {
+		callback;
+	}, [input]); */
 
-	/* 		const calcPlayerScore = () => {
+	const calcPlayerScore = () => {
 		let score = 0;
 		playerCards.map(card => {
 			score = pointTranslator(card, score);
 		});
 		setPlayerScore(score);
 	};
+	/* const calcPlayerScore = useCallback(() => {
+		let score = 0;
+		playerCards.map(card => {
+			score = pointTranslator(card, score);
+		});
+		setPlayerScore(score);
+	}, []); */
 	const calcDealerScore = test => {
 		let score = 0;
 		test
@@ -56,22 +66,20 @@ const useDeckHandler = init => {
 			: dealerCards.map(card => {
 					score = pointTranslator(card, score);
 			  });
-		console.log(score);
+		console.log(`score from calcDealerScore ${score}`);
 
 		setDealerScore(score);
-	}; */
+	};
 
 	const pointTranslator = (card, score) => {
-		console.log(card.value);
-
 		switch (card.value) {
 			case "ACE":
-				score += score + 11 <= 21 ? 3 : 1;
+				score += score + 11 <= 21 ? 11 : 1;
 				break;
 			case "KING":
 			case "QUEEN":
 			case "JACK":
-				score += 5;
+				score += 10;
 				break;
 			default:
 				score += +card.value;
@@ -107,10 +115,26 @@ const useDeckHandler = init => {
 	};
 
 	const stand = async () => {
-		checkScore();
+		/* checkScore(); */
+		/* console.log(dealerScore); */
+		let score = dealerScore;
+		console.log(score);
+		while (score < 17) {
+			const response = await fetchCard();
+			setState({
+				deck_id: response.deck_id,
+				remaining: response.remaining,
+				cards: [...cards, ...response.cards]
+			});
+			setDealerCards(prevState => [...prevState, ...response.cards]);
+			/* score += +response.cards[0].value; */
+			score = pointTranslator(response.cards[0], score);
+			console.log(score, response.cards[0]);
+		}
+		/* console.log(dealerScore); */
 	};
 
-	const checkScore = async () => {
+	/* 	const checkScore = async () => {
 		let score = dealerScore;
 		console.log(score);
 		while (score < 17) {
@@ -128,9 +152,13 @@ const useDeckHandler = init => {
 			});
 			console.log(score);
 		}
-	};
+	}; */
 
 	useEffect(() => {
+		calcPlayerScore();
+		calcDealerScore();
+	}, [playerCards, dealerCards]);
+	/* 	useEffect(() => {
 		let score = 0;
 		playerCards.map(card => {
 			score = pointTranslator(card, score);
@@ -147,7 +175,7 @@ const useDeckHandler = init => {
 		setDealerScore(score);
 		console.log(`dealer score ${score}`);
 		console.log(isPlayerToPlay);
-	}, [dealerCards]);
+	}, [dealerCards]); */
 
 	if (playerScore > 21) console.log("loooose");
 
