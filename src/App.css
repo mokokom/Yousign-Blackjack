@@ -8,4 +8,51 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	font-family: "Josefin Sans", sans-serif;
+}
+
+.yousign-container-logo {
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+.info-score-container {
+	position: absolute;
+	font-size: 3rem;
+	height: 100vh;
+	width: 100vw;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* color: #002b44; */
+}
+
+.info-score-container__player {
+	background-color: #f16c5ac0;
+	color: #002b44;
+	/* color: #73ebcb; */
+}
+.info-score-container__dealer {
+	background-color: #73ebcbc2;
+	color: #002b44;
+	/* color: #f16c5a; */
+}
+
+.blinking {
+	animation: blink normal 1s infinite ease-in-out;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }

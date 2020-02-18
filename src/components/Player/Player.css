@@ -4,6 +4,8 @@
 	right: 0.6rem;
 	text-align: right;
 	z-index: 100;
+	font-size: 2rem;
+	color: #f16c5a;
 }
 
 .player-overlay {
@@ -25,7 +27,7 @@
 }
 
 .action-btn {
-	height: 2.8rem;
+	height: 5rem;
 	position: absolute;
 	bottom: 0;
 	width: 64%;
@@ -60,8 +62,17 @@
 }
 
 .action-btn_title {
-	color: #f2f5f7;
-	font-size: 1rem;
+	color: #002b44;
+	font-size: 2rem;
 	cursor: pointer;
 	font-family: inherit;
+}
+
+@media screen and (max-width: 480px) {
+	.player-score-container {
+		font-size: 1.5rem;
+	}
+	.action-btn_title {
+		font-size: 1.5rem;
+	}
 }

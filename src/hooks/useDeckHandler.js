@@ -15,7 +15,7 @@ const useDeckHandler = init => {
 	/* 	const [showCard, setshowCard] = useState(""); */
 
 	useEffect(() => {
-		/* setIsPlayerToPlay(true); */
+		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
 				const data = await fetch(
@@ -39,7 +39,7 @@ const useDeckHandler = init => {
 			setPlayerCards(response.cards.filter((c, i) => i % 2 !== 0));
 			setDealerCards(response.cards.filter((c, i) => i % 2 === 0));
 		}
-		setIsloading(!isLoading);
+		setIsloading(false);
 	};
 
 	const calcPlayerScore = () => {
@@ -134,29 +134,31 @@ const useDeckHandler = init => {
 		}
 		setTimeout(() => {
 			handleReset();
-		}, 3000);
+		}, 1500);
 	};
 
 	const handleReset = () => {
 		/* setIsCardLoading(false); */
-		setWichPlayerWon("");
-		setIsPlayerToPlay(true);
-		try {
-			const fetchDeck = async () => {
-				const data = await fetch(
-					"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
-				);
-				const response = await data.json();
-				setState(response);
-				deal(response);
-				setIsloading(false);
-			};
-			fetchDeck();
-		} catch (error) {
-			throw new Error(console.log(error));
-		}
-		/* setTimeout(() => {
-		}, 3000); */
+
+		setTimeout(() => {
+			try {
+				const fetchDeck = async () => {
+					const data = await fetch(
+						"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
+					);
+					const response = await data.json();
+					setState(response);
+					deal(response);
+					setIsloading(false);
+				};
+				fetchDeck();
+			} catch (error) {
+				throw new Error(console.log(error));
+			}
+			setWichPlayerWon("");
+			setIsPlayerToPlay(true);
+		}, 500);
+		setIsloading(true);
 	};
 
 	useEffect(() => {
@@ -170,7 +172,7 @@ const useDeckHandler = init => {
 			setIsPlayerToPlay(false);
 			setTimeout(() => {
 				handleReset();
-			}, 2000);
+			}, 1500);
 		}
 	}, [playerScore]);
 

@@ -1,3 +1,13 @@
+.dealer-score-container {
+	position: absolute;
+	top: 0.4rem;
+	left: 0.6rem;
+	text-align: left;
+	z-index: 100;
+	font-size: 2rem;
+	color: #73ebca;
+}
+
 .dealer-overlay {
 	position: absolute;
 	top: 0px;
@@ -36,10 +46,8 @@
 	opacity: 0;
 }
 
-.dealer-score-container {
-	position: absolute;
-	top: 0.4rem;
-	left: 0.6rem;
-	text-align: left;
-	z-index: 100;
+@media screen and (max-width: 480px) {
+	.dealer-score-container {
+		font-size: 1.5rem;
+	}
 }

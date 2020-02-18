@@ -1,6 +1,7 @@
 .scores {
 	width: 6rem;
 	font-size: 2rem;
+	padding: 20px;
 }
 
 .dealer-value {

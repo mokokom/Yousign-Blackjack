@@ -38,8 +38,8 @@ const Player = ({
 					);
 				})}
 			</div>
-			{wichPlayerWon === "player" && <div>WIN</div>}
-			{wichPlayerWon === "dealer" && <div>LOOSE</div>}
+			{/* {wichPlayerWon === "player" && <div>{`YOUSIGNER: + 1`}</div>}
+			{wichPlayerWon === "dealer" && <div>LOSE</div>} */}
 			<div>
 				<div
 					className="action-btn hit-btn"

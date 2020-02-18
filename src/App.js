@@ -25,7 +25,12 @@ const App = () => {
 	return (
 		<>
 			{isLoading ? (
-				<h1>LOADING....</h1>
+				<div className="yousign-container-logo blinking">
+					<img
+						src="https://pbs.twimg.com/profile_images/1217357286659719169/z8OIp0Wb_400x400.png"
+						alt=""
+					/>
+				</div>
 			) : (
 				<div className="App">
 					<Dealer
@@ -49,6 +54,18 @@ const App = () => {
 						isPlayerToPlay={isPlayerToPlay}
 						wichPlayerWon={wichPlayerWon}
 					/>
+					{wichPlayerWon === "player" && (
+						<div className="info-score-container info-score-container__player">
+							<p>{`${playerScore} / ${dealerScore}`}</p>
+							<p>{`YOUSIGNER: + 1`}</p>
+						</div>
+					)}
+					{wichPlayerWon === "dealer" && (
+						<div className="info-score-container info-score-container__dealer">
+							<p>{` ${dealerScore} / ${playerScore}`}</p>
+							<p>{`DEALER: + 1`}</p>
+						</div>
+					)}
 				</div>
 			)}
 		</>
