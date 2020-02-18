@@ -96,10 +96,12 @@ const useDeckHandler = init => {
 
 	const stand = async () => {
 		setIsPlayerToPlay(false);
-		setIsCardLoading(true);
+
 		let score = dealerScore;
 		let cards = [];
+		/* setIsCardLoading(true); */
 		while (score < 17) {
+			/* setIsCardLoading(true); */
 			const response = await fetchCard();
 			setState({
 				deck_id: response.deck_id,
@@ -107,18 +109,10 @@ const useDeckHandler = init => {
 				cards: [...cards, ...response.cards]
 			});
 			cards.push(...response.cards);
-			console.log(cards);
-
-			/* setDealerCards(prevState => [...prevState, ...response.cards]); */
-			/* setTimeout(() => {
-			}, 500); */
 			score = pointTranslator(response.cards[0], score);
-			console.log(score, response.cards[0]);
 		}
-		console.log(cards);
 
 		setDealerCards(prevState => [...prevState, ...cards]);
-
 		if (score >= 17 && score <= 21) {
 			score > playerScore
 				? setWichPlayerWon(
@@ -138,29 +132,29 @@ const useDeckHandler = init => {
 		}
 		setTimeout(() => {
 			handleReset();
-		}, 500);
+		}, 3000);
 	};
 
 	const handleReset = () => {
-		setIsCardLoading(false);
+		/* setIsCardLoading(false); */
 		setWichPlayerWon("");
 		setIsPlayerToPlay(true);
-		setTimeout(() => {
-			try {
-				const fetchDeck = async () => {
-					const data = await fetch(
-						"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
-					);
-					const response = await data.json();
-					setState(response);
-					deal(response);
-					setIsloading(false);
-				};
-				fetchDeck();
-			} catch (error) {
-				throw new Error(console.log(error));
-			}
-		}, 2000);
+		try {
+			const fetchDeck = async () => {
+				const data = await fetch(
+					"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
+				);
+				const response = await data.json();
+				setState(response);
+				deal(response);
+				setIsloading(false);
+			};
+			fetchDeck();
+		} catch (error) {
+			throw new Error(console.log(error));
+		}
+		/* setTimeout(() => {
+		}, 3000); */
 	};
 
 	useEffect(() => {
