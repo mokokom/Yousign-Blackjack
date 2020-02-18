@@ -53,7 +53,7 @@ const useDeckHandler = init => {
 			: dealerCards.map(card => {
 					score = pointTranslator(card, score);
 			  });
-		console.log(`score from calcDealerScore ${score}`);
+		/* console.log(`score from calcDealerScore ${score}`); */
 
 		setDealerScore(score);
 	};
@@ -106,6 +106,36 @@ const useDeckHandler = init => {
 			setDealerCards(prevState => [...prevState, ...response.cards]);
 			score = pointTranslator(response.cards[0], score);
 			console.log(score, response.cards[0]);
+		}
+		if (score >= 17 && score <= 21) {
+			score > playerScore
+				? console.log(`dealer ${score} won, ${playerScore} loose`)
+				: console.log(`player ${playerScore} won, dealer ${score} loose`);
+		} else if (score > 21) {
+			console.log(`player ${playerScore} won, dealer ${score} loose`);
+		} else if (score === playerScore) {
+			console.log(`dealer ${playerScore} won, player ${score} loose`);
+		}
+		setTimeout(() => {
+			handleReset();
+		}, 2000);
+	};
+
+	const handleReset = () => {
+		try {
+			const fetchDeck = async () => {
+				const data = await fetch(
+					"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
+				);
+				const response = await data.json();
+				setState(response);
+				deal(response);
+				setIsloading(false);
+				setIsPlayerToPlay(true);
+			};
+			fetchDeck();
+		} catch (error) {
+			throw new Error(console.log(error));
 		}
 	};
 
