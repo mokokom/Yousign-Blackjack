@@ -11,6 +11,8 @@ const useDeckHandler = init => {
 	const [wichPlayerWon, setWichPlayerWon] = useState("");
 
 	useEffect(() => {
+		console.log("launch useeffect");
+
 		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
@@ -71,17 +73,6 @@ const useDeckHandler = init => {
 		}
 		return score;
 	};
-
-	const hit = async () => {
-		const response = await fetchCard();
-		setState({
-			deck_id: response.deck_id,
-			remaining: response.remaining,
-			cards: [...cards, ...response.cards]
-		});
-		setPlayerCards([...playerCards, ...response.cards]);
-	};
-
 	const fetchCard = async () => {
 		const data = await fetch(
 			`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`
@@ -89,8 +80,17 @@ const useDeckHandler = init => {
 		const response = await data.json();
 		return response;
 	};
+	/* 	const hit = async () => {
+		const response = await fetchCard();
+		setState({
+			deck_id: response.deck_id,
+			remaining: response.remaining,
+			cards: [...cards, ...response.cards]
+		});
+		setPlayerCards([...playerCards, ...response.cards]);
+	}; */
 
-	const stand = async () => {
+	/* const stand = async () => {
 		setIsPlayerToPlay(false);
 
 		let score = dealerScore;
@@ -125,7 +125,7 @@ const useDeckHandler = init => {
 			handleReset();
 		}, 3500);
 	};
-
+ */
 	const handleReset = () => {
 		setTimeout(() => {
 			try {
@@ -163,17 +163,59 @@ const useDeckHandler = init => {
 		}
 	}, [playerScore]);
 
-	return [
+	return {
 		playerCards,
 		dealerCards,
 		isPlayerToPlay,
-		hit,
-		stand,
+		hit: async () => {
+			const response = await fetchCard();
+			setState({
+				deck_id: response.deck_id,
+				remaining: response.remaining,
+				cards: [...cards, ...response.cards]
+			});
+			setPlayerCards([...playerCards, ...response.cards]);
+		},
+		stand: async () => {
+			setIsPlayerToPlay(false);
+
+			let score = dealerScore;
+			let cards = [];
+
+			while (score < 17) {
+				const response = await fetchCard();
+				setState({
+					deck_id: response.deck_id,
+					remaining: response.remaining,
+					cards: [...cards, ...response.cards]
+				});
+				cards.push(...response.cards);
+				score = pointTranslator(response.cards[0], score);
+			}
+			cards.forEach(card => {
+				setTimeout(() => {
+					setDealerCards(prevState => [...prevState, card]);
+				}, 500);
+			});
+			setTimeout(() => {
+				if (score >= 17 && score <= 21) {
+					score >= playerScore
+						? setWichPlayerWon("dealer")
+						: setWichPlayerWon("yousigner");
+				} else if (score > 21) {
+					setWichPlayerWon("yousigner");
+				}
+			}, 2000);
+
+			setTimeout(() => {
+				handleReset();
+			}, 3500);
+		},
 		playerScore,
 		dealerScore,
 		isLoading,
 		wichPlayerWon
-	];
+	};
 };
 
 export default useDeckHandler;

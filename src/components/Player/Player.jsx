@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+
+import { AppContext } from "../../contexts/AppContext";
+
 import "./Player.css";
 import "../main.css";
 
 let playerVictory = 0;
 
-const Player = ({ playerCards, hit, stand, isPlayerToPlay, wichPlayerWon }) => {
+const Player = () => {
+	const { playerCards, isPlayerToPlay, hit, stand, wichPlayerWon } = useContext(
+		AppContext
+	);
+
 	useEffect(() => {
 		if (wichPlayerWon === "yousigner") playerVictory += 1;
 	}, [wichPlayerWon]);

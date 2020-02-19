@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import useDealerCards from "../../hooks/useDealerCards";
+import { AppContext } from "../../contexts/AppContext";
 import "../main.css";
 import "./Dealer.css";
 
 let dealerVictory = 0;
 
-const Dealer = ({
-	dealerCards,
-	isPlayerToPlay,
-	dealerScore,
-	wichPlayerWon
-}) => {
+const Dealer = () => {
+	const {
+		dealerCards,
+		isPlayerToPlay,
+		dealerScore,
+		wichPlayerWon
+	} = useContext(AppContext);
+
 	const [cards, pointTranslator] = useDealerCards(
 		dealerCards,
 		isPlayerToPlay,
