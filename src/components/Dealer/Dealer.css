@@ -55,3 +55,9 @@
 		font-size: 1.5rem;
 	}
 }
+
+@media screen and (max-width: 270px) {
+	.dealer-score-container {
+		font-size: 1.1rem;
+	}
+}

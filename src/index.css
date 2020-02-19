@@ -5,8 +5,14 @@ html {
 body {
 	margin: 0;
 	background: #002b44;
+	background-repeat: repeat;
+	background-image: none;
+	background-size: auto;
 	box-sizing: border-box;
 	height: 100%;
+	background-image: url("https://yousign.com/_nuxt/img/c198af4.svg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 #root {
