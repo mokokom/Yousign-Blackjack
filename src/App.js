@@ -24,7 +24,7 @@ const App = () => {
 				<div className="yousign-container-logo blinking">
 					<img
 						src="https://pbs.twimg.com/profile_images/1217357286659719169/z8OIp0Wb_400x400.png"
-						alt=""
+						alt="LOAD..."
 					/>
 				</div>
 			) : (
@@ -55,7 +55,7 @@ const App = () => {
 							<p className="zoomOut">
 								{`${wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
 							</p>
-							<p className="zoomOut">{wichPlayerWon.toUpperCase()}:</p>
+							<p className="zoomOut">{wichPlayerWon.toUpperCase()}</p>
 							<p className="zoomOut">+ 1</p>
 						</div>
 					) : (
