@@ -17,7 +17,7 @@ React Hooks, JSX, CSS, HTML
 
 ## Requirements
 - [x] Make the app responsive
-- [x] use [deckofcardsapi](https://deckofcardsapi.com)
+- [x] Use [deckofcardsapi](https://deckofcardsapi.com)
 - [x] Shuffle the game
 - [x] Two buttons, one to "Hit" and one to "Stand"
 - [x] The player can draw as many cards as desired, as long as the sum does not exceed 21

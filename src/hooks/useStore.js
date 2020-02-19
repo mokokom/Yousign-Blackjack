@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useDeckHandler = init => {
+const useStore = init => {
 	const [{ deck_id, remaining, cards }, setState] = useState(init);
 	const [playerCards, setPlayerCards] = useState([{}]);
 	const [dealerCards, setDealerCards] = useState([{}]);
@@ -78,52 +78,7 @@ const useDeckHandler = init => {
 		const response = await data.json();
 		return response;
 	};
-	/* 	const hit = async () => {
-		const response = await fetchCard();
-		setState({
-			deck_id: response.deck_id,
-			remaining: response.remaining,
-			cards: [...cards, ...response.cards]
-		});
-		setPlayerCards([...playerCards, ...response.cards]);
-	}; */
 
-	/* const stand = async () => {
-		setIsPlayerToPlay(false);
-
-		let score = dealerScore;
-		let cards = [];
-
-		while (score < 17) {
-			const response = await fetchCard();
-			setState({
-				deck_id: response.deck_id,
-				remaining: response.remaining,
-				cards: [...cards, ...response.cards]
-			});
-			cards.push(...response.cards);
-			score = pointTranslator(response.cards[0], score);
-		}
-		cards.forEach(card => {
-			setTimeout(() => {
-				setDealerCards(prevState => [...prevState, card]);
-			}, 500);
-		});
-		setTimeout(() => {
-			if (score >= 17 && score <= 21) {
-				score >= playerScore
-					? setWichPlayerWon("dealer")
-					: setWichPlayerWon("yousigner");
-			} else if (score > 21) {
-				setWichPlayerWon("yousigner");
-			}
-		}, 2000);
-
-		setTimeout(() => {
-			handleReset();
-		}, 3500);
-	};
- */
 	const handleReset = () => {
 		setTimeout(() => {
 			try {
@@ -216,4 +171,4 @@ const useDeckHandler = init => {
 	};
 };
 
-export default useDeckHandler;
+export default useStore;
