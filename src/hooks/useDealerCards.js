@@ -45,7 +45,6 @@ const useDealerCards = (dealerCards, isPlayerToPlay) => {
 		switch (dealerCards[0].value) {
 			case "ACE":
 				dealerCards[0].value = 11;
-				/* dealerCards[0].value = dealerCards[1].value + 11 <= 21 ? 11 : 1; */
 				break;
 			case "KING":
 			case "QUEEN":

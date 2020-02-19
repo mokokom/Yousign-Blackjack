@@ -11,8 +11,6 @@ const useDeckHandler = init => {
 	const [wichPlayerWon, setWichPlayerWon] = useState("");
 
 	useEffect(() => {
-		console.log("launch useeffect");
-
 		setIsPlayerToPlay(true);
 		try {
 			const fetchDeck = async () => {
