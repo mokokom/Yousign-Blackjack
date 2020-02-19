@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 
 import { AppContext } from "../../contexts/AppContext";
 
@@ -8,7 +8,7 @@ import Score from "../Score/Score";
 
 import "./Board.css";
 
-const App = () => {
+const Board = () => {
 	const { isLoading, wichPlayerWon } = useContext(AppContext);
 
 	return (
@@ -44,4 +44,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default memo(Board);

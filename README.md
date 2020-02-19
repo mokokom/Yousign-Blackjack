@@ -5,6 +5,7 @@ Technical test for [Yousign](https://yousign.com/en-eu)
 Live project: [Yousign Blackjack](https://blackjack.mokokom.com/).
 
 ## Overview
+
 ![yousign blackjack screenshot](./yousign-blackjack-screenshot.png)
 
 The goal is to make a responsive game on the Chrome browser of single-player Blackjack using this API: [deckofcardsapi](https://deckofcardsapi.com) which will manage all the shuffling and drawing of random cards.
@@ -16,6 +17,7 @@ The goal is to make a responsive game on the Chrome browser of single-player Bla
 React Hooks, JSX, CSS, HTML
 
 ## Requirements
+
 - [x] Make the app responsive
 - [x] Use [deckofcardsapi](https://deckofcardsapi.com)
 - [x] Shuffle the game
@@ -26,6 +28,6 @@ React Hooks, JSX, CSS, HTML
 - [x] In the event of a tie, the bank also wins
 - [x] At the end, the game will be thrown, and a new one will be created to be able to replay.
 
+## Performance tests
 
-
-
+![Performance tests](./test-perf-screenshot.png)
