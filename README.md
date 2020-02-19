@@ -7,7 +7,7 @@ Live project: [Yousign Blackjack](https://blackjack.mokokom.com/).
 ## Overview
 ![yousign blackjack screenshot](./yousign-blackjack-screenshot.png)
 
-The goal is to make a responsive game on the Chrome browser of single-player Blackjack using this API: https://deckofcardsapi.com which will manage all the shuffling and drawing of random cards.
+The goal is to make a responsive game on the Chrome browser of single-player Blackjack using this API: [deckofcardsapi](https://deckofcardsapi.com) which will manage all the shuffling and drawing of random cards.
 
 [Rules](https://www.casinoonlinefrancais.info/blackjack/regles-du-jeu.html)
 
@@ -16,7 +16,9 @@ The goal is to make a responsive game on the Chrome browser of single-player Bla
 React Hooks, JSX, CSS, HTML
 
 ## Requirements
-- [x] shuffle the game
+- [x] Make the app responsive
+- [x] use [deckofcardsapi](https://deckofcardsapi.com)
+- [x] Shuffle the game
 - [x] Two buttons, one to "Hit" and one to "Stand"
 - [x] The player can draw as many cards as desired, as long as the sum does not exceed 21
 - [x] Once the player has clicked on "Stand," the bank, an AI, will play
