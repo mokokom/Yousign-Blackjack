@@ -6,9 +6,11 @@
 
 .dealer-value {
 	text-align: left;
+	color: #73ebca;
 }
 
 .player-value {
+	color: #f16c5a;
 	text-align: right;
 }
 

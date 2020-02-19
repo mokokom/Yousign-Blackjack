@@ -52,9 +52,11 @@ const App = () => {
 						<div
 							className={`info-score-container info-score-container__${wichPlayerWon}`}
 						>
-							<p>{`${wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}</p>
-							<p>{wichPlayerWon.toUpperCase()}:</p>
-							<p>+ 1</p>
+							<p className="zoomOut">
+								{`${wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
+							</p>
+							<p className="zoomOut">{wichPlayerWon.toUpperCase()}:</p>
+							<p className="zoomOut">+ 1</p>
 						</div>
 					) : (
 						""
