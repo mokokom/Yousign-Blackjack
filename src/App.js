@@ -62,6 +62,11 @@ const App = () => {
 					)}
 					{wichPlayerWon === "dealer" && (
 						<div className="info-score-container info-score-container__dealer">
+							<p>
+								{dealerScore === 21 || playerScore === 21
+									? `${"BLACKJACK"}`
+									: ""}
+							</p>
 							<p>{` ${dealerScore} / ${playerScore}`}</p>
 							<p>{`DEALER: + 1`}</p>
 						</div>

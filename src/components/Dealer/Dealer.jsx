@@ -25,11 +25,9 @@ const Dealer = ({
 				<div className="dealer-score-title">DEALER</div>
 				<div className="dealer-score">{dealerVictory}</div>
 			</div>
-			<div className="cards-container">
-				{isCardLoading ? <div>LOAD</div> : cards}
-			</div>
-			{wichPlayerWon === "dealer" && <div>WIN</div>}
-			{wichPlayerWon === "player" && <div>LOSE</div>}
+			<div className="cards-container">{cards}</div>
+			{/* {wichPlayerWon === "dealer" && <div>WIN</div>}
+			{wichPlayerWon === "player" && <div>LOSE</div>} */}
 		</div>
 	);
 };

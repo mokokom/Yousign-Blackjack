@@ -22,7 +22,7 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 						alt={`card: ${card.value}`}
 						className="card-container__image"
 					/>
-					<div className="dealer-overlay"></div>
+					<div className="dealer-overlay "></div>
 				</div>
 			);
 		});

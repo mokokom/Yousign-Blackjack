@@ -122,19 +122,19 @@ const useDeckHandler = init => {
 		console.log(score, playerScore);
 		setTimeout(() => {
 			if (score >= 17 && score <= 21) {
-				score > playerScore
+				score >= playerScore
 					? setWichPlayerWon("dealer")
 					: setWichPlayerWon("player");
 			} else if (score > 21) {
 				setWichPlayerWon("player");
-			} else if (score === playerScore) {
+			} /* else if (score === playerScore) {
 				setWichPlayerWon("dealer");
-			}
-		}, 1000);
+			} */
+		}, 2000);
 
 		setTimeout(() => {
 			handleReset();
-		}, 2500);
+		}, 3500);
 	};
 
 	const handleReset = () => {
@@ -157,7 +157,7 @@ const useDeckHandler = init => {
 			}
 			setWichPlayerWon("");
 			setIsPlayerToPlay(true);
-		}, 1500);
+		}, 800);
 		setIsloading(true);
 	};
 
