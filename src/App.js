@@ -56,18 +56,15 @@ const App = () => {
 					/>
 					{wichPlayerWon === "player" && (
 						<div className="info-score-container info-score-container__player">
-							<p>{`${playerScore} / ${dealerScore}`}</p>
+							{/* <p>{`${playerScore} / ${dealerScore}`}</p> */}
+							<p>{playerScore === 21 ? `${"BLACKJACK"}` : ""}</p>
 							<p>{`YOUSIGNER: + 1`}</p>
 						</div>
 					)}
 					{wichPlayerWon === "dealer" && (
 						<div className="info-score-container info-score-container__dealer">
-							<p>
-								{dealerScore === 21 || playerScore === 21
-									? `${"BLACKJACK"}`
-									: ""}
-							</p>
-							<p>{` ${dealerScore} / ${playerScore}`}</p>
+							<p>{dealerScore === 21 ? `${"BLACKJACK"}` : ""}</p>
+							{/* <p>{` ${dealerScore} / ${playerScore}`}</p> */}
 							<p>{`DEALER: + 1`}</p>
 						</div>
 					)}
