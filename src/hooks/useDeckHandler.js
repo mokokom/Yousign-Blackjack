@@ -115,9 +115,9 @@ const useDeckHandler = init => {
 			if (score >= 17 && score <= 21) {
 				score >= playerScore
 					? setWichPlayerWon("dealer")
-					: setWichPlayerWon("player");
+					: setWichPlayerWon("yousigner");
 			} else if (score > 21) {
-				setWichPlayerWon("player");
+				setWichPlayerWon("yousigner");
 			}
 		}, 2000);
 
