@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import useDealerCards from "../../hooks/useDealerCards";
 import "../main.css";
 import "./Dealer.css";
+
 let dealerVictory = 0;
+
 const Dealer = ({
 	dealerCards,
 	isPlayerToPlay,
 	dealerScore,
-	wichPlayerWon,
-	isCardLoading
+	wichPlayerWon
 }) => {
 	const [cards, pointTranslator] = useDealerCards(
 		dealerCards,
@@ -21,13 +22,11 @@ const Dealer = ({
 
 	return (
 		<div className="dealer-container">
-			<div className="dealer-score-container">
+			<div className="score-container dealer-score-container">
 				<div className="dealer-score-title">DEALER</div>
 				<div className="dealer-score">{dealerVictory}</div>
 			</div>
 			<div className="cards-container">{cards}</div>
-			{/* {wichPlayerWon === "dealer" && <div>WIN</div>}
-			{wichPlayerWon === "player" && <div>LOSE</div>} */}
 		</div>
 	);
 };

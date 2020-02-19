@@ -1,45 +1,18 @@
 .dealer-score-container {
-	position: absolute;
 	top: 0.4rem;
 	left: 0.6rem;
-	text-align: left;
-	z-index: 100;
-	font-size: 2rem;
 	color: #73ebca;
+	text-align: left;
+	font-size: 2rem;
 }
 
 .dealer-overlay {
-	position: absolute;
-	top: 0px;
-	bottom: 0;
-	/* left: 0.75rem;
-	right: 0.75rem; */
-	height: auto;
-	width: 75%;
-	opacity: 1;
-	transition: 0.5s ease;
-	/* background-color: #f16c5a31; */
 	background-color: #002b443d;
 	border: 6px solid #73ebca;
-	border-radius: 0.7rem;
-	display: flex;
-	text-align: center;
 }
 .dealer-hide-overlay {
-	position: absolute;
-	top: 0px;
-	bottom: 0;
-	/* left: 0.75rem;
-	right: 0.75rem; */
-	height: auto;
-	width: 75%;
-	opacity: 1;
-	transition: 0.5s ease;
 	background-color: #f16c5a;
 	border: 6px solid #73ebca;
-	border-radius: 0.7rem;
-	display: flex;
-	text-align: center;
 	background-image: url("https://pbs.twimg.com/profile_images/1217357286659719169/z8OIp0Wb_400x400.png");
 	background-position: center;
 	background-size: 70%;

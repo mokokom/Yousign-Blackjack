@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Player.css";
 import "../main.css";
+
 let playerVictory = 0;
-const Player = ({
-	playerCards,
-	hit,
-	stand,
-	playerScore,
-	isPlayerToPlay,
-	wichPlayerWon
-}) => {
+
+const Player = ({ playerCards, hit, stand, isPlayerToPlay, wichPlayerWon }) => {
 	useEffect(() => {
 		if (wichPlayerWon === "player") playerVictory += 1;
 	}, [wichPlayerWon]);
 
 	return (
 		<>
-			{/* <h1>Player: {playerScore}</h1> */}
-			<div className="player-score-container">
+			<div className="score-container player-score-container">
 				<div className="player-score-title">YOUSIGNER</div>
 				<div className="player-score">{playerVictory}</div>
 			</div>
@@ -31,13 +25,11 @@ const Player = ({
 								src={card.image}
 								alt={`${card.suit} ${card.value}`}
 							/>
-							<div className="player-overlay"></div>
+							<div className="general-overlay player-overlay"></div>
 						</div>
 					);
 				})}
 			</div>
-			{/* {wichPlayerWon === "player" && <div>{`YOUSIGNER: + 1`}</div>}
-			{wichPlayerWon === "dealer" && <div>LOSE</div>} */}
 			<div>
 				<div
 					className="action-btn hit-btn"

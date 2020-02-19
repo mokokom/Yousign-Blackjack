@@ -1,7 +1,5 @@
 .cards-container {
 	display: flex;
-	/* justify-content: center; */
-	/* flex-wrap: wrap; */
 }
 
 .card-container {
@@ -14,4 +12,22 @@
 	display: block;
 	width: 80%;
 	height: auto;
+}
+
+.score-container {
+	position: absolute;
+	z-index: 100;
+}
+
+.general-overlay {
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	height: auto;
+	width: 75%;
+	opacity: 1;
+	transition: 0.5s ease;
+	border-radius: 0.7rem;
+	display: flex;
+	text-align: center;
 }

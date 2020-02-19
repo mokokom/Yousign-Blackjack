@@ -1,6 +1,6 @@
 import React from "react";
 
-const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
+const useDealerCards = (dealerCards, isPlayerToPlay) => {
 	let cards = null;
 
 	if (isPlayerToPlay) {
@@ -10,10 +10,10 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 					<img
 						src={card.image}
 						alt={`card: ${card.value}`}
-						className="card-container__image card-container__image--hide"
+						className="card-container__image"
 						style={{ display: "" }}
 					/>
-					<div className="dealer-hide-overlay"></div>
+					<div className="general-overlay dealer-hide-overlay"></div>
 				</div>
 			) : (
 				<div key={card.code} className="card-container">
@@ -22,7 +22,7 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 						alt={`card: ${card.value}`}
 						className="card-container__image"
 					/>
-					<div className="dealer-overlay "></div>
+					<div className="general-overlay dealer-overlay"></div>
 				</div>
 			);
 		});
@@ -35,7 +35,7 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 						alt={`card: ${card.value}`}
 						className="card-container__image"
 					/>
-					<div className="dealer-overlay"></div>
+					<div className="general-overlay dealer-overlay"></div>
 				</div>
 			);
 		});
@@ -44,7 +44,8 @@ const useDealerCards = (dealerCards, isPlayerToPlay, dealerScore) => {
 	const pointTranslator = () => {
 		switch (dealerCards[0].value) {
 			case "ACE":
-				dealerCards[0].value = dealerCards[1].value + 11 <= 21 ? 11 : 1;
+				dealerCards[0].value = 11;
+				/* dealerCards[0].value = dealerCards[1].value + 11 <= 21 ? 11 : 1; */
 				break;
 			case "KING":
 			case "QUEEN":

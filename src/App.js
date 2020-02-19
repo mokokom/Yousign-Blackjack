@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useDeckHandler from "./hooks/useDeckHandler";
 import Player from "./components/Player/Player";
 import Dealer from "./components/Dealer/Dealer";
@@ -7,9 +7,6 @@ import "./App.css";
 
 const App = () => {
 	const [
-		deck_id,
-		remaining,
-		cards,
 		playerCards,
 		dealerCards,
 		isPlayerToPlay,
@@ -18,8 +15,7 @@ const App = () => {
 		playerScore,
 		dealerScore,
 		isLoading,
-		wichPlayerWon,
-		isCardLoading
+		wichPlayerWon
 	] = useDeckHandler({});
 
 	return (
@@ -38,7 +34,6 @@ const App = () => {
 						isPlayerToPlay={isPlayerToPlay}
 						dealerScore={dealerScore}
 						wichPlayerWon={wichPlayerWon}
-						isCardLoading={isCardLoading}
 					/>
 					<Score
 						dealerCards={dealerCards}
@@ -50,23 +45,19 @@ const App = () => {
 						playerCards={playerCards}
 						hit={hit}
 						stand={stand}
-						playerScore={playerScore}
 						isPlayerToPlay={isPlayerToPlay}
 						wichPlayerWon={wichPlayerWon}
 					/>
-					{wichPlayerWon === "player" && (
-						<div className="info-score-container info-score-container__player">
-							{/* <p>{`${playerScore} / ${dealerScore}`}</p> */}
-							<p>{playerScore === 21 ? `${"BLACKJACK"}` : ""}</p>
-							<p>{`YOUSIGNER: + 1`}</p>
+					{wichPlayerWon ? (
+						<div
+							className={`info-score-container info-score-container__${wichPlayerWon}`}
+						>
+							<p>{`${wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}</p>
+							<p>{wichPlayerWon.toUpperCase()}:</p>
+							<p>+ 1</p>
 						</div>
-					)}
-					{wichPlayerWon === "dealer" && (
-						<div className="info-score-container info-score-container__dealer">
-							<p>{dealerScore === 21 ? `${"BLACKJACK"}` : ""}</p>
-							{/* <p>{` ${dealerScore} / ${playerScore}`}</p> */}
-							<p>{`DEALER: + 1`}</p>
-						</div>
+					) : (
+						""
 					)}
 				</div>
 			)}

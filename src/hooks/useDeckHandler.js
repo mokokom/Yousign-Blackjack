@@ -9,10 +9,6 @@ const useDeckHandler = init => {
 	const [isPlayerToPlay, setIsPlayerToPlay] = useState(true);
 	const [isLoading, setIsloading] = useState(true);
 	const [wichPlayerWon, setWichPlayerWon] = useState("");
-	const [isCardLoading, setIsCardLoading] = useState(false);
-	/* const [dealerScore, setDealerScore] = useState(0);
-	const [playerScore, setPlayerScore] = useState(0); */
-	/* 	const [showCard, setshowCard] = useState(""); */
 
 	useEffect(() => {
 		setIsPlayerToPlay(true);
@@ -34,7 +30,6 @@ const useDeckHandler = init => {
 	const deal = response => {
 		if (response.cards.length > 4) {
 			setPlayerCards([...playerCards, response.cards.slice(-1).pop()]);
-			console.log(playerCards);
 		} else {
 			setPlayerCards(response.cards.filter((c, i) => i % 2 !== 0));
 			setDealerCards(response.cards.filter((c, i) => i % 2 === 0));
@@ -44,7 +39,7 @@ const useDeckHandler = init => {
 
 	const calcPlayerScore = () => {
 		let score = 0;
-		playerCards.map(card => {
+		playerCards.forEach(card => {
 			score = pointTranslator(card, score);
 		});
 		setPlayerScore(score);
@@ -54,7 +49,7 @@ const useDeckHandler = init => {
 		let score = 0;
 		showCard
 			? (score = pointTranslator(dealerCards[0], score))
-			: dealerCards.map(card => {
+			: dealerCards.forEach(card => {
 					score = pointTranslator(card, score);
 			  });
 
@@ -100,9 +95,8 @@ const useDeckHandler = init => {
 
 		let score = dealerScore;
 		let cards = [];
-		/* setIsCardLoading(true); */
+
 		while (score < 17) {
-			/* setIsCardLoading(true); */
 			const response = await fetchCard();
 			setState({
 				deck_id: response.deck_id,
@@ -112,14 +106,11 @@ const useDeckHandler = init => {
 			cards.push(...response.cards);
 			score = pointTranslator(response.cards[0], score);
 		}
-
-		/* setDealerCards(prevState => [...prevState, ...cards]); */
 		cards.forEach(card => {
 			setTimeout(() => {
 				setDealerCards(prevState => [...prevState, card]);
 			}, 500);
 		});
-		console.log(score, playerScore);
 		setTimeout(() => {
 			if (score >= 17 && score <= 21) {
 				score >= playerScore
@@ -127,9 +118,7 @@ const useDeckHandler = init => {
 					: setWichPlayerWon("player");
 			} else if (score > 21) {
 				setWichPlayerWon("player");
-			} /* else if (score === playerScore) {
-				setWichPlayerWon("dealer");
-			} */
+			}
 		}, 2000);
 
 		setTimeout(() => {
@@ -138,8 +127,6 @@ const useDeckHandler = init => {
 	};
 
 	const handleReset = () => {
-		/* setIsCardLoading(false); */
-
 		setTimeout(() => {
 			try {
 				const fetchDeck = async () => {
@@ -176,12 +163,7 @@ const useDeckHandler = init => {
 		}
 	}, [playerScore]);
 
-	/* console.log(playerScore); */
-
 	return [
-		deck_id,
-		remaining,
-		cards,
 		playerCards,
 		dealerCards,
 		isPlayerToPlay,
@@ -190,8 +172,7 @@ const useDeckHandler = init => {
 		playerScore,
 		dealerScore,
 		isLoading,
-		wichPlayerWon,
-		isCardLoading
+		wichPlayerWon
 	];
 };
 

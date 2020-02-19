@@ -18,6 +18,7 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .info-score-container {
 	position: absolute;
 	font-size: 3rem;
@@ -27,18 +28,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* color: #002b44; */
 }
 
 .info-score-container__player {
 	background-color: #002b44d7;
 	color: #f16c5a;
-	/* color: #73ebcb; */
 }
 .info-score-container__dealer {
 	background-color: #002b44dc;
 	color: #73ebcb;
-	/* color: #f16c5a; */
 }
 
 .blinking {
