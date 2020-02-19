@@ -12,6 +12,8 @@
 	display: block;
 	width: 80%;
 	height: auto;
+	box-shadow: 5px 5px 10px 2px black;
+	border-radius: 15px;
 }
 
 .score-container {
