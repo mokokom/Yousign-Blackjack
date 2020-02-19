@@ -11,9 +11,7 @@ const Player = ({
 	wichPlayerWon
 }) => {
 	useEffect(() => {
-		{
-			if (wichPlayerWon === "player") playerVictory += 1;
-		}
+		if (wichPlayerWon === "player") playerVictory += 1;
 	}, [wichPlayerWon]);
 
 	return (

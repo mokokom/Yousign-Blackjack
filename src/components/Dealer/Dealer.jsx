@@ -16,9 +16,7 @@ const Dealer = ({
 		dealerScore
 	);
 	useEffect(() => {
-		{
-			if (wichPlayerWon === "dealer") dealerVictory += 1;
-		}
+		if (wichPlayerWon === "dealer") dealerVictory += 1;
 	}, [wichPlayerWon]);
 
 	return (

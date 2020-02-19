@@ -78,7 +78,6 @@ const useDeckHandler = init => {
 	};
 
 	const hit = async () => {
-		console.log("hit");
 		const response = await fetchCard();
 		setState({
 			deck_id: response.deck_id,
@@ -114,27 +113,28 @@ const useDeckHandler = init => {
 			score = pointTranslator(response.cards[0], score);
 		}
 
-		setDealerCards(prevState => [...prevState, ...cards]);
-		if (score >= 17 && score <= 21) {
-			score > playerScore
-				? setWichPlayerWon(
-						"dealer"
-				  ) /* console.log(`dealer ${score} won, ${playerScore} loose`) */
-				: setWichPlayerWon(
-						"player"
-				  ); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
-		} else if (score > 21) {
-			setWichPlayerWon(
-				"player"
-			); /* console.log(`player ${playerScore} won, dealer ${score} loose`); */
-		} else if (score === playerScore) {
-			setWichPlayerWon(
-				"dealer"
-			); /* console.log(`dealer ${playerScore} won, player ${score} loose`); */
-		}
+		/* setDealerCards(prevState => [...prevState, ...cards]); */
+		cards.forEach(card => {
+			setTimeout(() => {
+				setDealerCards(prevState => [...prevState, card]);
+			}, 500);
+		});
+		console.log(score, playerScore);
+		setTimeout(() => {
+			if (score >= 17 && score <= 21) {
+				score > playerScore
+					? setWichPlayerWon("dealer")
+					: setWichPlayerWon("player");
+			} else if (score > 21) {
+				setWichPlayerWon("player");
+			} else if (score === playerScore) {
+				setWichPlayerWon("dealer");
+			}
+		}, 1000);
+
 		setTimeout(() => {
 			handleReset();
-		}, 1500);
+		}, 2500);
 	};
 
 	const handleReset = () => {
@@ -157,7 +157,7 @@ const useDeckHandler = init => {
 			}
 			setWichPlayerWon("");
 			setIsPlayerToPlay(true);
-		}, 500);
+		}, 1500);
 		setIsloading(true);
 	};
 
