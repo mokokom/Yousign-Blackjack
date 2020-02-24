@@ -118,12 +118,12 @@ const useStoreReducer = initState => {
 			state.playerCards.forEach(card => {
 				score = pointTranslator(card, score);
 			});
+			dispatch({
+				type: "SET_PLAYER_CARDS",
+				newScore: score,
+				distributeToPlayer: state.playerCards
+			});
 		}
-		dispatch({
-			type: "SET_PLAYER_CARDS",
-			newScore: score,
-			distributeToPlayer: state.playerCards
-		});
 	};
 	const calcDealerScore = showCard => {
 		let score = 0;
@@ -131,12 +131,12 @@ const useStoreReducer = initState => {
 			state.dealerCards.forEach(card => {
 				score = pointTranslator(card, score);
 			});
+			dispatch({
+				type: "SET_DEALER_CARDS",
+				newScore: score,
+				distributeToDealer: state.dealerCards
+			});
 		}
-		dispatch({
-			type: "SET_DEALER_CARDS",
-			newScore: score,
-			distributeToDealer: state.dealerCards
-		});
 		/* console.log(showCard)
   if(state.dealerCards){
     showCard
