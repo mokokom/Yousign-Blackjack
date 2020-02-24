@@ -8,8 +8,8 @@ const AppProvider = props => {
 	/* const deckHandler = useStore({}); */
 	const deckHandler = useStoreReducer({
 		deckState: { cards: [], deck_id: null, remaining: null },
-		playerCards: {},
-		dealerCards: {},
+		playerCards: [{}],
+		dealerCards: [{}],
 		playerScore: 0,
 		dealerScore: 0,
 		isPlayerToPlay: true,

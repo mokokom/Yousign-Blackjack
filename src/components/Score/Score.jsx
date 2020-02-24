@@ -4,25 +4,26 @@ import { AppContext } from "../../contexts/AppContext";
 import "./Score.css";
 
 const Score = () => {
-	const { dealerCards, isPlayerToPlay, playerScore, dealerScore } = useContext(
+	const { state } = useContext(AppContext);
+	/* const { dealerCards, isPlayerToPlay, playerScore, dealerScore } = useContext(
 		AppContext
-	);
+	); */
 
 	const [cards, pointTranslator] = useDealerCards(
-		dealerCards,
-		isPlayerToPlay,
-		dealerScore
+		state.dealerCards,
+		state.isPlayerToPlay,
+		state.dealerScore
 	);
 	return (
 		<div className="scores">
-			{isPlayerToPlay ? (
+			{state.isPlayerToPlay ? (
 				<div className="dealer-value">{pointTranslator()}</div>
 			) : (
-				<div className="dealer-value">{dealerScore}</div>
+				<div className="dealer-value">{state.dealerScore}</div>
 			)}
 
 			<hr className="score-divider" />
-			<div className="player-value">{playerScore}</div>
+			<div className="player-value">{state.playerScore}</div>
 		</div>
 	);
 };

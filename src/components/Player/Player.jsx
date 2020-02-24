@@ -8,13 +8,14 @@ import "../main.css";
 let playerVictory = 0;
 
 const Player = () => {
-	const { playerCards, isPlayerToPlay, hit, stand, wichPlayerWon } = useContext(
+	/* const { playerCards, isPlayerToPlay, hit, stand, wichPlayerWon } = useContext(
 		AppContext
-	);
+	); */
+	const { state, hit, stand } = useContext(AppContext);
 
 	useEffect(() => {
-		if (wichPlayerWon === "yousigner") playerVictory += 1;
-	}, [wichPlayerWon]);
+		if (state.wichPlayerWon === "yousigner") playerVictory += 1;
+	}, [state.wichPlayerWon]);
 
 	return (
 		<>
@@ -24,7 +25,7 @@ const Player = () => {
 			</div>
 
 			<div className="cards-container">
-				{playerCards.map(card => {
+				{state.playerCards.map(card => {
 					return (
 						<div key={card.code} className="card-container">
 							<img
@@ -40,14 +41,14 @@ const Player = () => {
 			<div>
 				<div
 					className="action-btn hit-btn"
-					disabled={!isPlayerToPlay}
+					disabled={!state.isPlayerToPlay}
 					onClick={hit}
 				>
 					<span className="action-btn_title">HIT</span>
 				</div>
 				<div
 					className="action-btn stand-btn"
-					disabled={!isPlayerToPlay}
+					disabled={!state.isPlayerToPlay}
 					onClick={stand}
 				>
 					<span className="action-btn_title">STAND</span>
