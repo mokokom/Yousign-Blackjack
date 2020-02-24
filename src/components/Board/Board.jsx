@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 
 import { AppContext } from "../../contexts/AppContext";
 
@@ -10,7 +10,6 @@ import "./Board.css";
 
 const Board = () => {
 	const { state } = useContext(AppContext);
-	/* const { isLoading, wichPlayerWon } = useContext(AppContext); */
 
 	return (
 		<>
@@ -45,4 +44,4 @@ const Board = () => {
 	);
 };
 
-export default Board;
+export default memo(Board);
