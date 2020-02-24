@@ -7,21 +7,17 @@ import "./Dealer.css";
 let dealerVictory = 0;
 
 const Dealer = () => {
-	const {
-		dealerCards,
-		isPlayerToPlay,
-		dealerScore,
-		wichPlayerWon
-	} = useContext(AppContext);
+	const { state } = useContext(AppContext);
+	console.log(state);
 
 	const [cards, pointTranslator] = useDealerCards(
-		dealerCards,
-		isPlayerToPlay,
-		dealerScore
+		state.dealerCards,
+		state.isPlayerToPlay,
+		state.dealerScore
 	);
 	useEffect(() => {
-		if (wichPlayerWon === "dealer") dealerVictory += 1;
-	}, [wichPlayerWon]);
+		if (state.wichPlayerWon === "dealer") dealerVictory += 1;
+	}, [state.wichPlayerWon]);
 
 	return (
 		<div className="dealer-container">

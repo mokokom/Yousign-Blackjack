@@ -9,11 +9,14 @@ import Score from "../Score/Score";
 import "./Board.css";
 
 const App = () => {
-	const { isLoading, wichPlayerWon } = useContext(AppContext);
+	const { state } = useContext(AppContext);
+	console.log(state);
+
+	/* const { isLoading, wichPlayerWon } = useContext(AppContext); */
 
 	return (
 		<>
-			{isLoading ? (
+			{state.isLoading ? (
 				<div className="yousign-container-logo blinking">
 					<img
 						src="https://pbs.twimg.com/profile_images/1217357286659719169/z8OIp0Wb_400x400.png"
@@ -25,14 +28,14 @@ const App = () => {
 					<Dealer />
 					<Score />
 					<Player />
-					{wichPlayerWon ? (
+					{state.wichPlayerWon ? (
 						<div
-							className={`info-score-container info-score-container__${wichPlayerWon}`}
+							className={`info-score-container info-score-container__${state.wichPlayerWon}`}
 						>
 							<p className="zoomOut">
-								{`${wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
+								{`${state.wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
 							</p>
-							<p className="zoomOut">{wichPlayerWon.toUpperCase()}</p>
+							<p className="zoomOut">{state.wichPlayerWon.toUpperCase()}</p>
 							<p className="zoomOut">+ 1</p>
 						</div>
 					) : (
