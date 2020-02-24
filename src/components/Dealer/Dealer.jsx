@@ -8,7 +8,6 @@ let dealerVictory = 0;
 
 const Dealer = () => {
 	const { state } = useContext(AppContext);
-	console.log(state);
 
 	const [cards, pointTranslator] = useDealerCards(
 		state.dealerCards,
@@ -16,8 +15,8 @@ const Dealer = () => {
 		state.dealerScore
 	);
 	useEffect(() => {
-		if (state.wichPlayerWon === "dealer") dealerVictory += 1;
-	}, [state.wichPlayerWon]);
+		if (state.whichPlayerWon === "dealer") dealerVictory += 1;
+	}, [state.whichPlayerWon]);
 
 	return (
 		<div className="dealer-container">

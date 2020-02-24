@@ -73,7 +73,7 @@ const reducer = (state, action) => {
 		case "ASSIGN_WIN":
 			return {
 				...state,
-				whichPlayerWon: action.setWichPlayerWon
+				whichPlayerWon: action.setWhichPlayerWon
 			};
 		case "FETCH_FAIL":
 			throw new Error(console.log(action.errorMessage));
@@ -84,7 +84,6 @@ const reducer = (state, action) => {
 
 const useStoreReducer = initState => {
 	const [state, dispatch] = useReducer(reducer, initState);
-	console.log(state);
 
 	useEffect(() => {
 		try {
@@ -113,8 +112,8 @@ const useStoreReducer = initState => {
 
 	const calcPlayerScore = () => {
 		let score = 0;
-		console.log(state.playerCards);
-		if (state.playerCards.length > 1) {
+
+		if (state.playerCards) {
 			state.playerCards.forEach(card => {
 				score = pointTranslator(card, score);
 			});
@@ -127,7 +126,7 @@ const useStoreReducer = initState => {
 	};
 	const calcDealerScore = showCard => {
 		let score = 0;
-		if (state.dealerCards.length > 1) {
+		if (state.dealerCards) {
 			state.dealerCards.forEach(card => {
 				score = pointTranslator(card, score);
 			});
@@ -198,19 +197,20 @@ const useStoreReducer = initState => {
 				score >= state.playerScore
 					? dispatch({
 							type: "ASSIGN_WIN",
-							setWichPlayerWon: "dealer"
+							setWhichPlayerWon: "dealer"
 					  })
 					: dispatch({
 							type: "ASSIGN_WIN",
-							setWichPlayerWon: "yousigner"
+							setWhichPlayerWon: "yousigner"
 					  });
 			} else if (score > 21) {
 				dispatch({
 					type: "ASSIGN_WIN",
-					setWichPlayerWon: "yousigner"
+					setWhichPlayerWon: "yousigner"
 				});
 			}
 		}, 2000);
+		console.log(state.whichPlayerWon);
 
 		setTimeout(() => {
 			handleReset();
@@ -233,11 +233,23 @@ const useStoreReducer = initState => {
 			} catch (error) {
 				throw new Error(console.log(error));
 			}
-			dispatch({ type: "ASSIGN_WIN", whichPlayerWon: null });
+			dispatch({ type: "ASSIGN_WIN", whichPlayerWon: "" });
 
 			dispatch({ type: "GAME_TURN", toggleTurn: true });
 		}, 800);
 	};
+
+	useEffect(() => {
+		if (state.playerScore > 21) {
+			/* setWichPlayerWon("dealer"); */
+			dispatch({ type: "ASSIGN_WIN", setWhichPlayerWon: "dealer" });
+			/* setIsPlayerToPlay(false); */
+			dispatch({ type: "GAME_TURN", toggleTurn: false });
+			setTimeout(() => {
+				handleReset();
+			}, 1500);
+		}
+	}, [state.playerScore]);
 
 	console.log(state);
 

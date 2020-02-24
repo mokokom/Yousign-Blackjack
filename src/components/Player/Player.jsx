@@ -14,8 +14,8 @@ const Player = () => {
 	const { state, hit, stand } = useContext(AppContext);
 
 	useEffect(() => {
-		if (state.wichPlayerWon === "yousigner") playerVictory += 1;
-	}, [state.wichPlayerWon]);
+		if (state.whichPlayerWon === "yousigner") playerVictory += 1;
+	}, [state.whichPlayerWon]);
 
 	return (
 		<>

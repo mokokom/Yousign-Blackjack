@@ -16,7 +16,6 @@ const AppProvider = props => {
 		whichPlayerWon: "",
 		isLoading: true
 	});
-	console.log(deckHandler);
 
 	/* const deck2 = useStoreReducer({}); */
 	/* console.log(deck2); */

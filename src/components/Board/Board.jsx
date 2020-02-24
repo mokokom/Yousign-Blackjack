@@ -8,10 +8,8 @@ import Score from "../Score/Score";
 
 import "./Board.css";
 
-const App = () => {
+const Board = () => {
 	const { state } = useContext(AppContext);
-	console.log(state);
-
 	/* const { isLoading, wichPlayerWon } = useContext(AppContext); */
 
 	return (
@@ -28,14 +26,14 @@ const App = () => {
 					<Dealer />
 					<Score />
 					<Player />
-					{state.wichPlayerWon ? (
+					{state.whichPlayerWon ? (
 						<div
-							className={`info-score-container info-score-container__${state.wichPlayerWon}`}
+							className={`info-score-container info-score-container__${state.whichPlayerWon}`}
 						>
 							<p className="zoomOut">
-								{`${state.wichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
+								{`${state.whichPlayerWon}Score` === 21 ? `${"BLACKJACK"}` : ""}
 							</p>
-							<p className="zoomOut">{state.wichPlayerWon.toUpperCase()}</p>
+							<p className="zoomOut">{state.whichPlayerWon.toUpperCase()}</p>
 							<p className="zoomOut">+ 1</p>
 						</div>
 					) : (
@@ -47,4 +45,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default Board;
