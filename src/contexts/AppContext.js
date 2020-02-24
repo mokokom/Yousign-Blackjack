@@ -1,12 +1,10 @@
 import React, { createContext } from "react";
 import useStoreReducer from "../hooks/useStoreReducer";
-/* import useStore from "../hooks/useStore"; */
 
 export const AppContext = createContext();
 
 const AppProvider = props => {
-	/* const deckHandler = useStore({}); */
-	const deckHandler = useStoreReducer({
+	const storeHandler = useStoreReducer({
 		deckState: { cards: [], deck_id: null, remaining: null },
 		playerCards: [{}],
 		dealerCards: [{}],
@@ -17,11 +15,8 @@ const AppProvider = props => {
 		isLoading: true
 	});
 
-	/* const deck2 = useStoreReducer({}); */
-	/* console.log(deck2); */
-
 	return (
-		<AppContext.Provider value={deckHandler}>
+		<AppContext.Provider value={storeHandler}>
 			{props.children}
 		</AppContext.Provider>
 	);

@@ -1,41 +1,4 @@
 import React, { useReducer, useEffect } from "react";
-/* import "./styles.css"; */
-
-/* const initState = {
-	deckState: { cards: [], deck_id: null, remaining: null },
-	playerCards: {},
-	dealerCards: {},
-	playerScore: 0,
-	dealerScore: 0,
-	isPlayerToPlay: true,
-	whichPlayerWon: "",
-	isLoading: true
-};
-export default function App(initState) {
-	const { state, hit, stand } = useStore(initState);
-	console.log(state);
-	return (
-		<div className="App">
-			<h1>Hello CodeSandbox</h1>
-			<div className="player">
-				{state.playerCards
-					? state.playerCards.map(card => {
-							return <img src={card.image} alt="card" />;
-					  })
-					: ""}
-			</div>
-			<button onClick={hit}>hit</button>
-			<button onClick={stand}>stand</button>
-			<div className="dealer">
-				{state.dealerCards
-					? state.dealerCards.map(card => {
-							return <img src={card.image} alt="card" />;
-					  })
-					: ""}
-			</div>
-		</div>
-	);
-} */
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -75,6 +38,11 @@ const reducer = (state, action) => {
 				...state,
 				whichPlayerWon: action.setWhichPlayerWon
 			};
+		case "LOAD":
+			return {
+				...state,
+				isLoading: action.toggleLoading
+			};
 		case "FETCH_FAIL":
 			throw new Error(console.log(action.errorMessage));
 		default:
@@ -84,7 +52,6 @@ const reducer = (state, action) => {
 
 const useStoreReducer = initState => {
 	const [state, dispatch] = useReducer(reducer, initState);
-
 	useEffect(() => {
 		try {
 			const fetchDeck = async () => {
@@ -92,8 +59,6 @@ const useStoreReducer = initState => {
 					"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
 				);
 				const response = await data.json();
-				/* console.log(response); */
-
 				dispatch({ type: "FETCH_SUCCESS", newDeck: response });
 				deal(dispatch, response);
 			};
@@ -104,48 +69,11 @@ const useStoreReducer = initState => {
 	}, []);
 
 	useEffect(() => {
-		calcPlayerScore();
+		calcPlayerScore(state.playerCards, dispatch);
 	}, [state.playerCards]);
 	useEffect(() => {
-		calcDealerScore();
+		calcDealerScore(state.dealerCards, dispatch);
 	}, [state.dealerCards]);
-
-	const calcPlayerScore = () => {
-		let score = 0;
-
-		if (state.playerCards) {
-			state.playerCards.forEach(card => {
-				score = pointTranslator(card, score);
-			});
-			dispatch({
-				type: "SET_PLAYER_CARDS",
-				newScore: score,
-				distributeToPlayer: state.playerCards
-			});
-		}
-	};
-	const calcDealerScore = showCard => {
-		let score = 0;
-		if (state.dealerCards) {
-			state.dealerCards.forEach(card => {
-				score = pointTranslator(card, score);
-			});
-			dispatch({
-				type: "SET_DEALER_CARDS",
-				newScore: score,
-				distributeToDealer: state.dealerCards
-			});
-		}
-		/* console.log(showCard)
-  if(state.dealerCards){
-    showCard
-      ? (score = pointTranslator(state.dealerCards[0], score))
-      : state.dealerCards.forEach(card => {
-          score = pointTranslator(card, score);
-        });
-        dispatch({type: "UPDATE_DEALER_SCORE", newScore: score, distributeToDealer: state.dealerCards})
-  } */
-	};
 
 	const hit = async () => {
 		const response = await fetchCard(state.deckState.deck_id);
@@ -165,7 +93,6 @@ const useStoreReducer = initState => {
 
 	const stand = async () => {
 		dispatch({ type: "GAME_TURN", toggleTurn: false });
-
 		let score = state.dealerScore;
 		let cards = [];
 
@@ -188,7 +115,7 @@ const useStoreReducer = initState => {
 			setTimeout(() => {
 				dispatch({
 					type: "SET_DEALER_CARDS",
-					distributeToDealer: [...state.dealerCards, ...cards]
+					distributeToDealer: [...state.dealerCards, card]
 				});
 			}, 500);
 		});
@@ -210,8 +137,6 @@ const useStoreReducer = initState => {
 				});
 			}
 		}, 2000);
-		console.log(state.whichPlayerWon);
-
 		setTimeout(() => {
 			handleReset();
 		}, 3500);
@@ -225,7 +150,6 @@ const useStoreReducer = initState => {
 						"https://deckofcardsapi.com/api/deck/new/draw/?count=4"
 					);
 					const response = await data.json();
-
 					dispatch({ type: "FETCH_SUCCESS", newDeck: response });
 					deal(dispatch, response);
 				};
@@ -234,24 +158,20 @@ const useStoreReducer = initState => {
 				throw new Error(console.log(error));
 			}
 			dispatch({ type: "ASSIGN_WIN", whichPlayerWon: "" });
-
 			dispatch({ type: "GAME_TURN", toggleTurn: true });
 		}, 800);
+		dispatch({ type: "LOAD", toggleLoading: true });
 	};
 
 	useEffect(() => {
 		if (state.playerScore > 21) {
-			/* setWichPlayerWon("dealer"); */
 			dispatch({ type: "ASSIGN_WIN", setWhichPlayerWon: "dealer" });
-			/* setIsPlayerToPlay(false); */
 			dispatch({ type: "GAME_TURN", toggleTurn: false });
 			setTimeout(() => {
 				handleReset();
 			}, 1500);
 		}
 	}, [state.playerScore]);
-
-	console.log(state);
 
 	return { state, hit, stand };
 };
@@ -270,6 +190,33 @@ const pointTranslator = (card, score) => {
 			score += +card.value;
 	}
 	return score;
+};
+
+const calcPlayerScore = (playerCards, dispatch) => {
+	let score = 0;
+	if (playerCards) {
+		playerCards.forEach(card => {
+			score = pointTranslator(card, score);
+		});
+		dispatch({
+			type: "SET_PLAYER_CARDS",
+			newScore: score,
+			distributeToPlayer: playerCards
+		});
+	}
+};
+const calcDealerScore = (dealerCards, dispatch) => {
+	let score = 0;
+	if (dealerCards) {
+		dealerCards.forEach(card => {
+			score = pointTranslator(card, score);
+		});
+		dispatch({
+			type: "SET_DEALER_CARDS",
+			newScore: score,
+			distributeToDealer: dealerCards
+		});
+	}
 };
 
 const deal = (dispatch, response) => {
